@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-namespace jk\sys;
+namespace jarekkozak\sys;
 
 /**
  * Properties class read properties defined in plain text file *.properties.
@@ -25,7 +25,7 @@ namespace jk\sys;
  * 
  * @author jarek
  */
-class PropertiesFile extends \yii\base\Object implements \jk\sys\IProperties
+class PropertiesFile extends \yii\base\Object implements \jarekkozak\sys\IProperties
 {
     protected $envars = ['HOME', 'PWD'];
     protected $filename = '';
@@ -86,6 +86,5 @@ class PropertiesFile extends \yii\base\Object implements \jk\sys\IProperties
     {
         $this->filename = $filename;
     }
-
 
 }

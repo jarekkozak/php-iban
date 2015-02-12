@@ -4,14 +4,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace jk\sys;
+namespace jarekkozak\sys;
 /**
  * Defines class interface to get property
- * @author jarek
+ * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com>
  */
 interface IProperties
 {
-
     /**
      * Returns value of the property
      * @param type $name

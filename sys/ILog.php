@@ -4,10 +4,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace jk\sys;
+
+namespace jarekkozak\sys;
 /**
  *
- * @author jarek
+ * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com>
  */
 interface ILog
 {
@@ -15,5 +16,5 @@ interface ILog
     const ERROR = 'ERROR';
     const WARN = 'WARN';
     public function log($message,$type = ILog::INFO);
-    
+
 }

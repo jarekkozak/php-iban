@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-namespace jk\outlook;
+namespace jarekkozak\outlook;
 
 /**
  * Class for connecting to the exchange server
@@ -49,22 +49,17 @@ class Outlook extends \yii\base\Object
 
     public function init()
     {
-        if ($this->properties === TRUE && \Yii::$container->has('jk\sys\IProperties')) {
-            $this->setProperties(\Yii::$container->get('jk\sys\IProperties'));
+        if ($this->properties === TRUE && \Yii::$container->has('jarekkozak\sys\IProperties')) {
+            $this->setProperties(\Yii::$container->get('jarekkozak\sys\IProperties'));
         }
     }
 
-    function setProperties(\jk\sys\IProperties $property)
+    public function setProperties(\jarekkozak\sys\IProperties $property)
     {
-        if (!$this->username) {
-            $this->setUsername($property->getProperty(self::USERNAME_PROPERTY));
-        }
-        if (!$this->password) {
-            $this->setPassword($property->getProperty(self::PASSWORD_PROPERTY));
-        }
-        if (!$this->server) {
-            $this->setServer($property->getProperty(self::SERVER_PROPERTY));
-        }
+        $this->properties = $property;
+        $this->setUsername($property->getProperty(self::USERNAME_PROPERTY));
+        $this->setPassword($property->getProperty(self::PASSWORD_PROPERTY));
+        $this->setServer($property->getProperty(self::SERVER_PROPERTY));
     }
 
     function getLog()

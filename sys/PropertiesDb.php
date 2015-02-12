@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-namespace jk\sys;
+namespace jarekkozak\sys;
 
 /**
  *

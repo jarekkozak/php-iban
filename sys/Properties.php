@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-namespace jk\sys;
+namespace jarekkozak\sys;
 
 /**
  *
@@ -13,7 +13,7 @@ namespace jk\sys;
  *
  * @author jaroslaw.kozak68@gmail.com
  */
-class Properties extends \yii\base\Object implements \jk\sys\IProperties
+class Properties extends \yii\base\Object implements \jarekkozak\sys\IProperties
 {
     protected $values;
 
