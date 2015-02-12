@@ -16,7 +16,15 @@ INSTALLATION
 ### Install from an Archive File
 
 Extract the archive file downloaded from this site to
-a directory named `vendor` in your yii2 application and manually amend composer.json.
+a directory named `vendor` in your yii2 application and manually add dependency in composer.json.
+
+~~~
+   "require": {
+        ........
+        "jarekkozak/yii2-libs": "*"
+    },
+~~~
+    
 
 
 ### Install via Composer
