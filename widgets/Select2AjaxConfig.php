@@ -1,6 +1,6 @@
 <?php
 
-namespace jarekkozak\helpers;
+namespace jarekkozak\widgets;
 
 use yii\base\InvalidConfigException;
 use yii\base\Object;
@@ -41,7 +41,7 @@ class Select2AjaxConfig extends Object
         if($this->url === NULL) {
             throw new InvalidConfigException('url must be provided');
         }
-        $this->url = Url::to($this->url);
+        $this->url = Url::to($this->url,true);
     }
 
     public function getConfig()
