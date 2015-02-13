@@ -1,5 +1,5 @@
 <?php
-namespace jk\widgets;
+namespace jarekkozak\widgets;
 
 use yii\web\AssetBundle;
 

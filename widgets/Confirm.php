@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace jk\widgets;
+namespace jarekkozak\widgets;
 
 /**
  * Description of Confirm

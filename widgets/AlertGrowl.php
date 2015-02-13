@@ -6,7 +6,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace jk\widgets;
+namespace jarekkozak\widgets;
 
 use kartik\widgets\AlertBlock;
 
@@ -21,7 +21,7 @@ use kartik\widgets\AlertBlock;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Alert extends AlertBlock
+class AlertGrowl extends AlertBlock
 {
     public function init()
     {
