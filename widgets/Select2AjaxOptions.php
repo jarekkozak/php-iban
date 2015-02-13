@@ -18,20 +18,19 @@ use yii\web\JsExpression;
  *
  * $helper = new Select2Options([
  *      'url'=>"ajax action url",
- *      "options" => "custom select2 options see kartik select2 doc"
+ *      "config" => "custom select2 configurationsee kartik select2 doc"
  * ]);
  *
  * in select2 widget configuration us
- * [
- *    ......
- *    'options'=>$helper->getOptions();
- * ]
+ *
+ * Select2::widget($helper->getConfig(['url'=>'url','options'=>[],'pluginOptions'=>......));
+ *
  *
  * ~~~
  *
  * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com
  */
-class Select2AjaxOptions extends Object
+class Select2AjaxConfig extends Object
 {
     public $url = NULL;
     public $options = [];
@@ -45,7 +44,7 @@ class Select2AjaxOptions extends Object
         $this->url = Url::to($this->url);
     }
 
-    public function getOptions()
+    public function getConfig()
     {
 
         $out = [
