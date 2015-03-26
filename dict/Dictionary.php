@@ -12,39 +12,87 @@ namespace jarekkozak\dict;
  *
  * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com>
  */
-class Dictionary
+abstract class Dictionary implements IDictionary
 {
     /**
      * Define const with default values
      */
-    private static $_values=null;
+    protected static $_values = null;
+
+    public static function dictionary()
+    {
+        return get_called_class();
+    }
+
+    final protected function init()
+    {
+        if (static::$_values == null) {
+            static::$_values = array_unique(static::load());
+        }
+    }
+
+    protected abstract static function load();
+
+    final public static function isValid($value)
+    {
+        self::init();
+        return in_array($value, static::$_values, TRUE);
+    }
 
     /**
-     * Actual dictionary value
-     * @var type
+     * Check if key exist
      */
-    protected $value = NULL;
+    final static function exist($key)
+    {
+        self::init();
+        return array_key_exists($key, static::$_values);
+    }
 
-    private function init($key){
-        if(self::$_values == null){
-            self::$_values = $this->load();
+    final static function getInstanceFromValue($value)
+    {
+        self::init();
+        if (($key = array_search($value, static::$_values, true)) === FALSE) {
+            throw new DictionaryNotFoundException("No dictionary entry for value:$value");
         }
-        if(!isset(self::$_values[$key])){
+        return self::getInstance($key);
+    }
+
+    final static function getInstance($key){
+        if(!self::exist($key)){
+            throw new DictionaryNotFoundException("No dictionary entry for value:$value");
+        }
+        $class = new \ReflectionClass(get_called_class());
+        return $class->newInstance($key);
+    }
+
+    final static function values()
+    {
+        self::init();
+        $ret = [];
+        foreach (static::$_values as $key => $value) {
+            $ret[] = self::getInstance($key);
+        }
+        return $ret;
+    }
+
+    public function __construct($key)
+    {
+        self::init();
+        if (!isset(self::$_values[$key])) {
             throw new DictionaryNotFoundException($key);
         }
         $this->value = self::$_values[$key];
+        $this->key   = $key;
     }
 
-    protected function load(){
-        return [];
-    }
-
-    public function __construct($key){
-        $this->init($key);
-    }
-
-    public function value(){
+    public function value()
+    {
         return $this->value;
+    }
+
+    public function key()
+    {
+        return $this->key;
     }
 
     /**
@@ -52,9 +100,10 @@ class Dictionary
      * @param type $value
      * @return boolean
      */
-    public function equals($value){
-        if($value instanceof $this){
-            if($value->value === $this->value){
+    public function equals($value)
+    {
+        if ($value instanceof $this) {
+            if ($value->value === $this->value && $value->key === $this->key()) {
                 return TRUE;
             }
         }
