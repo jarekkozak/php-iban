@@ -1,4 +1,4 @@
-php-iban
+php-iban1
 ========
 
 `php-iban` is a library for parsing and validating IBAN (and IIBAN) bank account information in PHP.
