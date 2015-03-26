@@ -12,7 +12,7 @@ namespace jarekkozak\sys;
  *
  * @see yii\di\Container
  *
- * @author jarek
+ * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com>
  */
 class DependencyManager
 {
