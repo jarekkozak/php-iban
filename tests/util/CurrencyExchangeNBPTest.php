@@ -96,6 +96,7 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
         $this->object->setExchangeRateDate(new \Moment\Moment('2015-03-21'));
         $this->assertEquals('2015-03-21T00:00:00+0000',
             $this->object->getExchangeRateDate()->format());
+
         $this->assertEquals('2015-03-20T00:00:00+0000',
             $this->object->getTableDate()->format());
 

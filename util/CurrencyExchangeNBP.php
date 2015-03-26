@@ -96,6 +96,18 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         return FALSE;
     }
 
+    protected function findPrevTableName(array $names){
+        $name = array_pop($names);
+        $dateTime = \DateTime::createFromFormat('ymd', substr($name, 5));
+        $date = new Moment($dateTime->format('Y-m-d'));
+        while ($date->isAfter($this->exchangeRateDate) && count($names)>0) {
+            $name = array_pop($names);
+            $dateTime = \DateTime::createFromFormat('ymd', substr($name, 5));
+            $date = new Moment($dateTime->format('Y-m-d'));
+        }
+        return $name;
+    }
+
     /**
      * @throws CurrencyExchangeRateException
      */
@@ -108,7 +120,8 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
             if (($names_table = $this->getExRatioTableList($this->tableType)) == FALSE) {
                 throw new CurrencyExchangeRateException('Exchange rate table type:'.$this->tableType.' not exists for date:'.$this->exchangeRateDate->format());
             }
-            $name = array_pop($names_table);
+            //$name = array_pop($names_table);
+            $name = $this->findPrevTableName($names_table);
         }
 
         $tableExc = simplexml_load_file($this->linkDir.'/'.$name.'.xml');
