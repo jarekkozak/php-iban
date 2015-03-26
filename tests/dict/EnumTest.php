@@ -55,7 +55,7 @@ class EnumTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(EnumMock1::isValid('1'));
         $this->assertTrue(EnumMock1::isValid('2'));
         $this->assertFalse(EnumMock1::isValid(1));
-        $this->assertFalse(EnumMock1::isValid('3'));
+        $this->assertTrue(EnumMock1::isValid('3'));
     }
 
     /**

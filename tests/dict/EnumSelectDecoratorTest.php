@@ -42,7 +42,7 @@ class EnumSelectDecoratorTest extends \PHPUnit_Framework_TestCase
             1=>'A',
             2=>'B',
             null=>'NONE'
-        ]
+        ];
 
     }
 
