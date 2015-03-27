@@ -19,7 +19,7 @@ interface IDictionary
      * Provide dictionary object name
      * @return struing  dictionary name
      */
-    public function dictionary();
+    public static function dictionary();
 
     /**
      * Checks if value exists in dictionary.
