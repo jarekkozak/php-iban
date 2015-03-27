@@ -70,11 +70,12 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValid()
     {
-        $this->assertTrue(Dict1::isValid(1));
-        $this->assertTrue(Dict1::isValid(2));
-        $this->assertFalse(Dict1::isValid(3));
-        $this->assertFalse(Dict1::isValid('1'));
-        $this->assertFalse(Dict1::isValid('2'));
+        $dict = new Dict1();
+        $this->assertTrue($dict->isValid(1));
+        $this->assertTrue($dict->isValid(2));
+        $this->assertFalse($dict->isValid(3));
+        $this->assertFalse($dict->isValid('1'));
+        $this->assertFalse($dict->isValid('2'));
     }
 
     /**
@@ -97,7 +98,7 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
             new Dict1(Dict1::VALUE1),
             new Dict1(Dict1::VALUE2),
         ];
-        $this->assertEquals($arr, Dict1::values());
+        $this->assertEquals($arr, Dict1::getInstance()->values());
     }
 
     /**
@@ -113,6 +114,6 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
      */
     public function testDictionary()
     {
-        $this->assertEquals('jarekkozak\tests\dict\Dict1', Dict1::dictionary());
+        $this->assertEquals('jarekkozak\tests\dict\Dict1', Dict1::getInstance()->dictionary());
     }
 }

@@ -39,7 +39,7 @@ class DictionaryJsonDecoratorTest extends \PHPUnit_Framework_TestCase
     {
         $comp = '[{"id":1,"text":"com.common.value1"},{"id":2,"text":"com.common.value2"}]';
         $decorator = new DictionaryJsonDecorator();
-        $this->assertEquals($comp, $decorator->values(Dict1::values()));
+        $this->assertEquals($comp, $decorator->values(Dict1::getInstance()->values()));
     }
 
     /**
@@ -50,6 +50,6 @@ class DictionaryJsonDecoratorTest extends \PHPUnit_Framework_TestCase
     {
         $comp = '[{"id":1,"text":"com.common.value1-TRANSLATED-jarekkozak\\\tests\\\dict\\\Dict1"},{"id":2,"text":"com.common.value2-TRANSLATED-jarekkozak\\\tests\\\dict\\\Dict1"}]';
         $decorator = new DictionaryJsonDecorator(new Dict1Translator());
-        $this->assertEquals($comp, $decorator->values(Dict1::values()));
+        $this->assertEquals($comp, $decorator->values(Dict1::getInstance()->values()));
     }
 }

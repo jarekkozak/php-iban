@@ -18,71 +18,73 @@ abstract class Dictionary implements IDictionary
      * Define const with default values
      */
     protected static $_values = null;
+    protected $value          = null;
+    protected $key            = null;
 
-    public static function dictionary()
+    public function __construct($key = null)
     {
-        return get_called_class();
+        $this->init();
+        if ($key == null) {
+            return;
+        }
+        if (!isset(self::$_values[$key])) {
+            throw new DictionaryNotFoundException("No dictionary entry for key:$key");
+        }
+        $this->value = self::$_values[$key];
+        $this->key   = $key;
+    }
+
+    public function dictionary()
+    {
+        return get_class($this);
     }
 
     final protected function init()
     {
         if (static::$_values == null) {
-            static::$_values = array_unique(static::load());
+            static::$_values = array_unique($this->load());
         }
     }
 
-    protected abstract static function load();
+    protected abstract function load();
 
-    final public static function isValid($value)
+    final public function isValid($value)
     {
-        self::init();
         return in_array($value, static::$_values, TRUE);
     }
 
     /**
      * Check if key exist
      */
-    final static function exist($key)
+    final public function exist($key)
     {
-        self::init();
         return array_key_exists($key, static::$_values);
     }
 
-    final static function getInstanceFromValue($value)
+    final public static function getInstanceFromValue($value)
     {
-        self::init();
+        if (self::$_values == null) {
+            self::getInstance(); //In case values are not initialized
+        }
         if (($key = array_search($value, static::$_values, true)) === FALSE) {
             throw new DictionaryNotFoundException("No dictionary entry for value:$value");
         }
         return self::getInstance($key);
     }
 
-    final static function getInstance($key){
-        if(!self::exist($key)){
-            throw new DictionaryNotFoundException("No dictionary entry for value:$value");
-        }
+    final public static function getInstance($key = null)
+    {
         $class = new \ReflectionClass(get_called_class());
         return $class->newInstance($key);
     }
 
-    final static function values()
+    final public function values()
     {
-        self::init();
         $ret = [];
-        foreach (static::$_values as $key => $value) {
+        foreach (self::$_values as $key => $value) {
             $ret[] = self::getInstance($key);
         }
         return $ret;
-    }
-
-    public function __construct($key)
-    {
-        self::init();
-        if (!isset(self::$_values[$key])) {
-            throw new DictionaryNotFoundException($key);
-        }
-        $this->value = self::$_values[$key];
-        $this->key   = $key;
     }
 
     public function value()
@@ -109,6 +111,4 @@ abstract class Dictionary implements IDictionary
         }
         return FALSE;
     }
-
-
 }

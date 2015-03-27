@@ -19,7 +19,7 @@ interface IDictionary
      * Provide dictionary object name
      * @return struing  dictionary name
      */
-    public static function dictionary();
+    public function dictionary();
 
     /**
      * Checks if value exists in dictionary.
@@ -30,14 +30,14 @@ interface IDictionary
      * @param mixed $value value to be checked
      * @return bool true if value exists in dictionary
      */
-    public static function isValid($value);
+    public function isValid($value);
 
     /**
      * Check if key exist
      * @param string $key name
      * @return bool true if key exists
      */
-    public static function exist($key);
+    public function exist($key);
 
     /**
      * Create dictionary object from given value
@@ -54,13 +54,13 @@ interface IDictionary
      * @return IDictionary Description
      * @throws jarekkozak\dict\DictionaryNotFoundException
      */
-    public static function getInstance($key);
+    public static function getInstance($key=null);
 
     /**
      * Returns array of dictionary entries
      * @return array array of dictionary objects
      */
-    public static function values();
+    public function values();
 
     /**
      * Return dictionary entry value

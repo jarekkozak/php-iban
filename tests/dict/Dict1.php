@@ -21,7 +21,7 @@ class Dict1 extends \jarekkozak\dict\Dictionary
      * Load dictionary values
      * @return type
      */
-    protected static function load()
+    protected function load()
     {
         return [
             self::VALUE1 => 1,

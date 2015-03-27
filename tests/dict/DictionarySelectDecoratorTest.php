@@ -41,7 +41,7 @@ class DictionarySelectDecoratorTest extends \PHPUnit_Framework_TestCase
             2 => Dict1::VALUE2
         ];
         $decorator = new DictionarySelectDecorator();
-        $this->assertEquals($comp, $decorator->values(Dict1::values()));
+        $this->assertEquals($comp, $decorator->values(Dict1::getInstance()->values()));
     }
 
     /**
@@ -55,6 +55,6 @@ class DictionarySelectDecoratorTest extends \PHPUnit_Framework_TestCase
             2 => Dict1::VALUE2.'-TRANSLATED-jarekkozak\tests\dict\Dict1'
         ];
         $decorator = new DictionarySelectDecorator(new Dict1Translator());
-        $this->assertEquals($comp, $decorator->values(Dict1::values()));
+        $this->assertEquals($comp, $decorator->values(Dict1::getInstance()->values()));
     }
 }
