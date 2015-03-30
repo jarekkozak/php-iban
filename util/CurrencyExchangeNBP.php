@@ -272,4 +272,14 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
     protected function setTableName(){
         // Read only
     }
+
+    /**
+     * Returns table order number in format
+     * yyyyXXX where yyyy - year XXX - number in year
+     * @return int
+     */
+    public function getTableOrderNumber(){
+        $nr = $this->getTableNumber();
+        return (int)(substr($nr,10,4).substr($nr,0,3));
+    }
 }

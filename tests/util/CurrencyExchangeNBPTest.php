@@ -186,5 +186,17 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             $this->object->getTableNumber());
         $this->assertEquals('a055z150320',$this->object->getTableName());
     }
+    /**
+     * @covers jarekkozak\util\CurrencyExchangeNBP::getTableOrderNumber()
+     */
+    public function testGetTableOrderNumber()
+    {
+        $this->object = new CurrencyExchangeNBP([
+            'tableType' => 'a',
+            'exchangeRateDate' => new \Moment\Moment('2015-03-20')
+        ]);
+        $this->assertEquals(2015055,
+            $this->object->getTableOrderNumber());
+    }
 
 }
