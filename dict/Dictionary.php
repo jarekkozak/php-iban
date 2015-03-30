@@ -120,7 +120,7 @@ abstract class Dictionary implements IDictionary
      * Get dictionary position generic string representation 
      * @return string
      */
-    public function toString(){
+    public function __toString(){
         return 'key:'.$this->key.'  value:'.$this->value.'  type:'.gettype($this->value);
     }
 }

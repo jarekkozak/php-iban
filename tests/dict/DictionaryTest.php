@@ -116,4 +116,15 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('jarekkozak\tests\dict\Dict1', Dict1::getInstance()->dictionary());
     }
+
+    /**
+     * @covers jarekkozak\dict\Dictionary::toString
+     */
+    public function testToString()
+    {
+        $a = new Dict1(Dict1::VALUE1);
+        $this->assertEquals('key:com.common.value1  value:1  type:integer', ''.$a);
+    }
+
+
 }
