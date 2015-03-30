@@ -22,15 +22,22 @@ use Moment\Moment;
  */
 class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
 {
+
+    const AVERAGE = 'a';
+    const SOURCE_CURRENCY = 'PLN';
+
     protected $exchangeRateDate;
     protected $linkList       = 'http://www.nbp.pl/kursy/xml/dir.txt';
     protected $linkDir        = 'http://www.nbp.pl/kursy/xml';
-    protected $tableType      = 'a';
-    protected $sourceCurrency = 'PLN';
+    protected $tableType      = self::AVERAGE;
+    protected $sourceCurrency = self::SOURCE_CURRENCY;
+
+    private $_cache        = NULL;
+
     protected $table;
     protected $tableDate   = NULL;
     protected $tableNumber = NULL;
-    private $_cache        = NULL;
+    protected $tableName   = NULL;
 
     public function init()
     {
@@ -135,6 +142,7 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
                 'price' => $this->parseValue((string) $kurs_sredni)
             ];
         }
+        $this->tableName   = $name;
         $this->tableDate   = new Moment((string) $tableExc->data_publikacji);
         $this->tableNumber = (string) $tableExc->numer_tabeli;
         $this->table       = $ratio;
@@ -253,6 +261,15 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
 
     protected function setTable($table)
     {
+        // Read only
+    }
+
+    public function getTableName(){
+        $this->downloadTable();
+        return $this->tableName;
+    }
+
+    protected function setTableName(){
         // Read only
     }
 }

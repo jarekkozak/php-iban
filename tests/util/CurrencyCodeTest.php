@@ -36,7 +36,7 @@ class CurrencyCodeTest extends \PHPUnit_Framework_TestCase
     public function testDownloadISOCodes()
     {
         $a = $this->object->downloadISOCodes();
-        $this->assertCount(4, $a);
+        $this->assertCount(5, $a);
         $this->assertTrue(isset($a["country"]["POLAND"]));
         $poland = $a["country"]["POLAND"];
         $this->assertEquals('PLN',$poland['currency']);
@@ -44,7 +44,10 @@ class CurrencyCodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Zloty',$poland['name']);
         $this->assertEquals(2,$poland['minor_unit']);
 
+        //Currency
 
+        $currency = $a["currency"];
+        $this->assertEquals('Euro',$currency['EUR']['name']);
 
     }
 
@@ -69,5 +72,25 @@ class CurrencyCodeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('EUR', $this->object->getIsoCurrency(978));
         $this->assertEquals(FALSE, $this->object->getIsoCurrency(8978));
     }
-    
+
+
+    public function testOutList(){
+
+
+        $a = $this->object->downloadISOCodes();
+        $b = $a['currency'];
+        foreach ($this->object->str2code as $key => $value) {
+            $name = $b[$key]['name'];
+            //echo "\$this->insert('{{%currency}}',['currency'=>'$key','currency_code'=>'$value','name'=>'$name','created_at'=>1,'updated_at'=>1]);\n";
+        }
+//        $this->assertCount(5, $a);
+//        $this->assertTrue(isset($a["country"]["POLAND"]));
+//        $poland = $a["country"]["POLAND"];
+//        $this->assertEquals('PLN',$poland['currency']);
+//        $this->assertEquals(985,$poland['code']);
+//        $this->assertEquals('Zloty',$poland['name']);
+//        $this->assertEquals(2,$poland['minor_unit']);
+
+    }
+
 }

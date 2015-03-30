@@ -107,6 +107,7 @@ class CurrencyCode
     {
 
         $out_contry        = [];
+        $out_currency      = [];
         $out_str2code      = [];
         $out_code2currency = [];
 
@@ -128,6 +129,13 @@ class CurrencyCode
                     'code' => $currency_code,
                     'minor_unit' => $currency_minor_unit
                 ];
+                $out_currency[$currency] = [
+                    'country' => $country,
+                    'currency' => $currency,
+                    'name' => $currency_name,
+                    'code' => $currency_code,
+                    'minor_unit' => $currency_minor_unit
+                ];
                 $out_str2code[$currency]           = $currency_code;
                 $out_code2currency[$currency_code] = $currency;
             }
@@ -135,6 +143,7 @@ class CurrencyCode
         return [
             'date' => $date,
             'country' => $out_contry,
+            'currency' => $out_currency,
             'str2code' => $out_str2code,
             'code2str' => $out_code2currency,
         ];

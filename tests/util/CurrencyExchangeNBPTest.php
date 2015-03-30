@@ -184,6 +184,7 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertEquals('055/A/NBP/2015',
             $this->object->getTableNumber());
+        $this->assertEquals('a055z150320',$this->object->getTableName());
     }
 
 }
