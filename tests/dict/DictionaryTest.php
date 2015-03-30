@@ -126,5 +126,4 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('key:com.common.value1  value:1  type:integer', ''.$a);
     }
 
-
 }
