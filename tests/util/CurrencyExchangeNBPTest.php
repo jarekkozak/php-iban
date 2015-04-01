@@ -199,4 +199,21 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             $this->object->getTableOrderNumber());
     }
 
+    /**
+     * @covers jarekkozak\util\CurrencyExchangeNBP::init
+     *
+     *
+     * @expectedException jarekkozak\util\CurrencyExchangeRateException
+     */
+    public function testFutureDate()
+    {
+        $today = new \Moment\Moment();
+        $tommorow = $today->addDays(1);
+
+        $this->object = new CurrencyExchangeNBP([
+            'tableType' => 'a',
+            'exchangeRateDate' => $tommorow
+        ]);
+    }
+
 }

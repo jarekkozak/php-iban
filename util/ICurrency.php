@@ -12,5 +12,11 @@ namespace jarekkozak\util;
  */
 interface ICurrency
 {
-    //put your code here
+
+    public function setConverter($converter);
+    public function getConverter();
+    public function setPrice();
+    public function getPrice();
+    public function convert($currency,$amount);
+
 }

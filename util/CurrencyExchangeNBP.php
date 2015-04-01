@@ -47,6 +47,10 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         } elseif (is_string($this->exchangeRateDate)) {
             $this->exchangeRateDate = new Moment($this->exchangeRateDate);
         }
+        $today = new Moment();
+        if ($today->isBefore($this->exchangeRateDate)) {
+            throw new CurrencyExchangeRateException('You cannot get exchange rate for future. Today:'.$today->format().' Request date:'.$this->exchangeRateDate->format());
+        }
     }
 
     /**
