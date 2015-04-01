@@ -42,6 +42,9 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
     public function init()
     {
         parent::init();
+
+        $this->sourceCurrency = self::SOURCE_CURRENCY;
+
         if ($this->exchangeRateDate == NULL) {
             $this->exchangeRateDate = new Moment();
         } elseif (is_string($this->exchangeRateDate)) {
@@ -180,7 +183,8 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
 
     public function setSourceCurrency($currency)
     {
-        $this->sourceCurrency = $currency;
+        //read only
+        //$this->sourceCurrency = $currency;
     }
 
     /**
@@ -286,4 +290,6 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         $nr = $this->getTableNumber();
         return (int)(substr($nr,10,4).substr($nr,0,3));
     }
+
+
 }
