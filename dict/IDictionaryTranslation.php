@@ -17,6 +17,7 @@ interface IDictionaryTranslation
     /**
      * Provide human readable key name translation
      * @param IDictionary dictionary to be translated
+     * @return string Translated description of dictionary item
      */
     public function translate(IDictionary $dict);
     
