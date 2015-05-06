@@ -114,7 +114,7 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('PLN', $this->object->getSourceCurrency());
         $this->object->setSourceCurrency('EUR');
-        $this->assertEquals('EUR', $this->object->getSourceCurrency());
+        $this->assertEquals('PLN', $this->object->getSourceCurrency());
     }
 
     /**

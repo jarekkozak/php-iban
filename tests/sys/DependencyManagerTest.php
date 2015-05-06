@@ -56,6 +56,9 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
             'jarekkozak\sys\IProperties' => [
                 'class' => 'jarekkozak\sys\Properties',
         ]]);
+        $container = \Yii::$container;
+        $this->assertTrue(\Yii::$container->has('jarekkozak\sys\IProperties'));
+
         $a = \Yii::$container->get('jarekkozak\sys\TestDPM');
         $this->assertInstanceOf('jarekkozak\sys\Properties', $a->prop);
     }
@@ -73,15 +76,15 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
             $a = \Yii::$container->get('jarekkozak\sys\TestDPM');
             $this->assertInstanceOf('jarekkozak\sys\Properties', $a->prop);
             $this->assertEquals('test1', $a->prop->getProperty('prop1'));
-        }
     }
+}
 
-    class TestDPM
+class TestDPM
+{
+    public $prop;
+
+    public function __construct(\jarekkozak\sys\IProperties $_prop)
     {
-        public $prop;
-
-        public function __construct(\jarekkozak\sys\IProperties $_prop)
-        {
-            $this->prop = $_prop;
-        }
+        $this->prop = $_prop;
     }
+}

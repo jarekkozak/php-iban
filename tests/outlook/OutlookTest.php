@@ -24,7 +24,7 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->property = new \jarekkozak\sys\PropertiesFile([
-            'filename' => '$HOME/.secret/skills-secret'
+            'filename' => '$HOME/.secret/outlook-secret'
         ]);
 
         if ($this->property->getProperty('exchangeServer') == NULL) {
@@ -63,10 +63,11 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthenticateContainerInjection()
     {
+        $container = \Yii::$container;
         \jarekkozak\sys\DependencyManager::register([
             'jarekkozak\sys\IProperties' => [
                 'class' => 'jarekkozak\sys\PropertiesFile',
-                'filename' => '$HOME/.secret/skills-secret'
+                'filename' => '$HOME/.secret/outlook-secret'
             ],
             'jarekkozak\outlook\Outlook' => [
                 'class' => 'jarekkozak\outlook\Outlook',
@@ -84,11 +85,10 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthenticateServiceLocator()
     {
-        \Yii::$container->clear('jarekkozak\sys\IProperties');
         \Yii::$container->set('jarekkozak\sys\IProperties',
             [
             'class' => 'jarekkozak\sys\PropertiesFile',
-            'filename' => '$HOME/.secret/skills-secret'
+            'filename' => '$HOME/.secret/outlook-secret'
         ]);
         $app  = \Yii::$app;
         \Yii::$app->set('outlookAuth',
