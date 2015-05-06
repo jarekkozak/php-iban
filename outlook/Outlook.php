@@ -38,17 +38,9 @@ class Outlook extends \yii\base\Object
     protected $error;
 
 
-    /**
-     * Default constructor to provide connection details
-     * @param \jk\sys\IProperties $property
-     */
-    public function __construct($config = [])
-    {
-        parent::__construct($config);
-    }
-
     public function init()
     {
+        parent::init();
         if ($this->properties === TRUE && \Yii::$container->has('jarekkozak\sys\IProperties')) {
             $this->setProperties(\Yii::$container->get('jarekkozak\sys\IProperties'));
         }
