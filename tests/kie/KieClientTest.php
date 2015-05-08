@@ -55,7 +55,7 @@ class KieClientTest extends \PHPUnit_Framework_TestCase
     public function testContainerInfo()
     {
         $client = new KieClient([
-            'context'=>$this->property->getProperty('kie-server'),
+            'serverContext'=>$this->property->getProperty('kie-server'),
             'username'=>$this->property->getProperty('kie-user'),
             'password'=>$this->property->getProperty('kie-password'),
         ]);

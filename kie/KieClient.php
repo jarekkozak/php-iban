@@ -17,8 +17,7 @@ use yii\base\Object;
  */
 class KieClient extends Object
 {
-    public $context;
-    public $container;
+    public $serverContext;
     public $username;
     public $password;
 
@@ -67,7 +66,7 @@ class KieClient extends Object
      */
     public function getServerUrl($path = null)
     {
-        $url = $this->context.self::SERVER_PATH;
+        $url = $this->serverContext.self::SERVER_PATH;
         if ($path !== null) {
             $url .= '/'.$path;
         }

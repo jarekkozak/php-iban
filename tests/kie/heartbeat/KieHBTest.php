@@ -33,7 +33,7 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
             echo 'kie-password=password';
         }
         $this->client = new KieClient([
-            'context' => $this->property->getProperty('kie-server'),
+            'serverContext' => $this->property->getProperty('kie-server'),
             'username' => $this->property->getProperty('kie-user'),
             'password' => $this->property->getProperty('kie-password'),
         ]);
