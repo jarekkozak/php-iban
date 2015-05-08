@@ -89,20 +89,6 @@ class KieContainer extends \yii\base\Object
      * @return boolean
      */
     public function execute(KieBatch $batch){
-        $data = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<batch-execution lookup="ksession">
-  <insert out-identifier="request">
-    <trimetis.perdiem.Request>
-      <message>HeartBeat</message>
-      <time>2004-02-22 14:12:59 UTC</time>
-      <start>2004-02-22 14:12:59 UTC</start>
-    </trimetis.perdiem.Request>
-  </insert>
-  <fire-all-rules/>
-  <query out-identifier="response" name="getResponse"/>
-</batch-execution>
-XML;
         if($this->client->POST($this->_url(),$batch->toXml())==false){
             return FALSE;
         };

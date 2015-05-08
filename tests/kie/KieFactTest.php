@@ -49,7 +49,7 @@ class KieFactTest extends PHPUnit_Framework_TestCase
 
         $converter = new KieMomentConverter();
 
-        $reqFact = new KieFact(['factName' => 'org.jarekkozak.Request', 'object' => $request,
+        $reqFact = new KieFact($request,['factName' => 'org.jarekkozak.Request',
             'nodes' => [
                 'message',
                 'start' => [
@@ -85,7 +85,7 @@ class KieFactTest extends PHPUnit_Framework_TestCase
 
         $converter = new KieMomentConverter();
 
-        $reqFact = new KieFact(['factName' => 'org.jarekkozak.Request', 'object' => $request,
+        $reqFact = new KieFact($request,['factName' => 'org.jarekkozak.Request',
             'nodes' => [
                 'message',
                 'start' => [
@@ -121,7 +121,7 @@ class KieFactTest extends PHPUnit_Framework_TestCase
 
         $converter = new KieMomentConverter();
 
-        $reqFact = new KieFact(['factName' => 'org.jarekkozak.Request', 'object' => $request,
+        $reqFact = new KieFact(null,['factName' => 'org.jarekkozak.Request', 'object' => $request,
             'nodes' => [
                 'message',
                 'start',
@@ -148,7 +148,7 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         $request->start   = new Moment('1970-01-01T12:34:00');
         $request->time    = new Moment('1970-01-02T12:34:00');
         $converter = new KieMomentConverter();
-        $reqFact = new KieFact(['factName' => 'trimetis.perdiem.Request', 'object' => $request,
+        $reqFact = new KieFact(null,['factName' => 'trimetis.perdiem.Request', 'object' => $request,
             'nodes' => [
                 'message',
                 'start' => [
@@ -183,7 +183,7 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         $request->start   = new Moment('1970-01-01T12:34:00');
         $request->time    = new Moment('1970-01-02T12:34:00');
         $converter = new KieMomentConverter();
-        $reqFact = new KieFact(['factName' => 'trimetis.perdiem.Request', 'object' => $request,
+        $reqFact = new KieFact($request,['factName' => 'trimetis.perdiem.Request',
             'nodes' => [
                 'message',
                 'start' => [
@@ -218,7 +218,7 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         //Dla faktu już zdefiniowanego robimy update, poszukujemy w resultatach identyfikatora i robimy wsteczny update pól
         $response = new heartbeat\KieHBResponse();
         $converter = new KieMomentConverter();
-        $reqFact = new KieFact(['factName' => 'trimetis.perdiem.Response', 'object' => $response,
+        $reqFact = new KieFact(null,['factName' => 'trimetis.perdiem.Response', 'object' => $response,
             'nodes' => [
                 'output',
                 'responseDate' => [

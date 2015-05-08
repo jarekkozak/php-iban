@@ -15,6 +15,7 @@ class KieBatchTest extends \PHPUnit_Framework_TestCase
      * @var KieServer
      */
     protected $object;
+    protected $property;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -22,6 +23,16 @@ class KieBatchTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $this->property = new \jarekkozak\sys\PropertiesFile([
+            'filename' => '$HOME/.secret/kiesrv-secret'
+        ]);
+        if ($this->property->getProperty('kie-server') == NULL) {
+            echo 'Property file does not exist:';
+            echo 'With content:';
+            echo 'kie-server=exchange_address_with_context';
+            echo 'kie-user=username or email';
+            echo 'kie-password=password';
+        }
     }
 
     /**
@@ -91,20 +102,20 @@ class KieBatchTest extends \PHPUnit_Framework_TestCase
         $request->start   = new Moment('2015-01-01T12:34:00');
         $request->time    = new Moment('2015-01-02T12:34:00');
 
-        $config['object']=$request;
+        //$config['object']=$request;
         $config['identifier']='req1';
 
-        $reqFact1 = new KieFact($config);
+        $reqFact1 = new KieFact($request,$config);
 
         $request          = new KieHBRequest();
         $request->message = 'Test message2';
         $request->start   = new Moment('2015-02-01T12:34:00');
         $request->time    = new Moment('2015-02-02T12:34:00');
 
-        $config['object']=$request;
+        //$config['object']=$request;
         $config['identifier']='req2';
 
-        $reqFact2 = new KieFact($config);
+        $reqFact2 = new KieFact($request,$config);
 
         $batch->addFact($reqFact1);
         $batch->addFact($reqFact2);

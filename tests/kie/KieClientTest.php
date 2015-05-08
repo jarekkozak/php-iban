@@ -15,6 +15,7 @@ class KieClientTest extends \PHPUnit_Framework_TestCase
      * @var KieClient
      */
     protected $object;
+    protected $property;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -23,6 +24,19 @@ class KieClientTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new KieClient;
+
+        $this->property = new \jarekkozak\sys\PropertiesFile([
+            'filename' => '$HOME/.secret/kiesrv-secret'
+        ]);
+        if ($this->property->getProperty('kie-server') == NULL) {
+            echo 'Property file does not exist:';
+            echo 'With content:';
+            echo 'kie-server=exchange_address_with_context';
+            echo 'kie-user=username or email';
+            echo 'kie-password=password';
+        }
+
+
     }
 
     /**
@@ -41,13 +55,15 @@ class KieClientTest extends \PHPUnit_Framework_TestCase
     public function testContainerInfo()
     {
         $client = new KieClient([
-            'context'=>'http://localhost:8081/kie-server',
-            'username'=>'kiesrv',
-            'password'=>'kiesrv',
+            'context'=>$this->property->getProperty('kie-server'),
+            'username'=>$this->property->getProperty('kie-user'),
+            'password'=>$this->property->getProperty('kie-password'),
         ]);
 
+        $version = $this->property->getProperty('kie-version');
+
         $exp = [
-          'version' => '6.2.0.Final'
+          'version' => $version!=null?$version:'6.2.0.Final'
         ];
         $result = $client->getServerInfo();
         $this->assertEquals($exp, $result);

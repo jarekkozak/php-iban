@@ -22,10 +22,21 @@ use yii\base\Object;
 class KieFact extends Object
 {
     protected $identifier;
-    protected $factName;   // Fact name e.g. org.demo.Message
-    protected $nodes;      // List of nodes to be sent
-    protected $attributes; // Optionally list of attributes to be send with
-    protected $object;
+    protected $factName = null;   // Fact name e.g. org.demo.Message
+    protected $nodes = null;      // List of nodes to be sent
+    protected $object = null;
+
+
+    public function __construct($object, $config = array())
+    {
+        $this->object = $object;
+        if($object instanceof IKieFactSourceObject){
+            $this->factName = $object->getFactName();
+            $this->identifier = $object->getIdentifier();
+            $this->nodes = $object->getNodes();
+        }
+        parent::__construct($config);
+    }
 
     public function init()
     {
@@ -55,11 +66,6 @@ class KieFact extends Object
         return $this->nodes;
     }
 
-    function getAttributes()
-    {
-        return $this->attributes;
-    }
-
     function setFactName($factName)
     {
         $this->factName = $factName;
@@ -68,11 +74,6 @@ class KieFact extends Object
     function setNodes($nodes)
     {
         $this->nodes = $nodes;
-    }
-
-    function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
     }
 
     public function setObject(Object $objec)

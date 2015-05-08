@@ -15,6 +15,7 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
      * @var KieContainer
      */
     protected $object;
+    protected $property;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -22,7 +23,16 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-
+        $this->property = new \jarekkozak\sys\PropertiesFile([
+            'filename' => '$HOME/.secret/kiesrv-secret'
+        ]);
+        if ($this->property->getProperty('kie-server') == NULL) {
+            echo 'Property file does not exist:';
+            echo 'With content:';
+            echo 'kie-server=exchange_address_with_context';
+            echo 'kie-user=username or email';
+            echo 'kie-password=password';
+        }
     }
 
     /**
@@ -35,38 +45,44 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Creates KIE client
+     * @return \jarekkozak\kie\KieClient
+     */
+    public function getClient()
+    {
+        $client = new KieClient([
+            'context' => $this->property->getProperty('kie-server'),
+            'username' => $this->property->getProperty('kie-user'),
+            'password' => $this->property->getProperty('kie-password'),
+        ]);
+        return $client;
+    }
+
+    /**
      * @covers jarekkozak\kie\KieContainer::getContainerInfo
      * @todo   Implement testGetContainerInfo().
      */
     public function testGetContainerInfo()
     {
-        $client = new KieClient([
-            'context' => 'http://localhost:8081/kie-server',
-            'username' => 'kiesrv',
-            'password' => 'kiesrv',
-        ]);
+        $client    = $this->getClient();
         $container = new KieContainer([
             'client' => $client,
-            'container'=>'containers/perdiem'
+            'container' => 'containers/heartbeat'
         ]);
-        $info = $container->getContainerInfo();
+        $info      = $container->getContainerInfo();
     }
 
-    public function testExecute(){
-        $client = new KieClient([
-            'context' => 'http://localhost:8081/kie-server',
-            'username' => 'kiesrv',
-            'password' => 'kiesrv',
-        ]);
+    public function testExecute()
+    {
+        $client    = $this->getClient();
         $container = new KieContainer([
             'client' => $client,
-            'container'=>'containers/perdiem'
-
+            'container' => 'containers/heartbeat'
         ]);
 ///
-        $batch = new KieBatch(['lookup'=>'ksession']);
+        $batch     = new KieBatch(['lookup' => 'ksession']);
         $converter = new KieMomentConverter();
-        $config = ['factName' => 'trimetis.perdiem.Request','nodes' => [
+        $config    = ['factName' => 'trimetis.heartbeat.Request', 'nodes' => [
                 'message',
                 'start' => [
                     'name' => 'start',
@@ -83,24 +99,22 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
         $request->start   = new Moment('2015-01-01T12:34:00');
         $request->time    = new Moment('2015-01-02T12:34:00');
 
-        $config['object']=$request;
-        $config['identifier']='request1';
+        $config['identifier'] = 'request1';
 
-        $reqFact1 = new KieFact($config);
+        $reqFact1 = new KieFact($request,$config);
 
 
         $batch->addFact($reqFact1);
 
         $batch->addQuery(new KieQuery([
-            'name'=>'getResponse',
-            'identifier'=>'response'
+            'name' => 'getResponse',
+            'identifier' => 'response'
         ]));
 
 ///
-        $res = $container->execute($batch);
+        $res     = $container->execute($batch);
         $this->assertTrue($res);
         $results = $container->getResults();
         $this->assertCount(2, $results);
-
     }
 }

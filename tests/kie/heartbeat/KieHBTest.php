@@ -13,6 +13,8 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
      * @var KieHB
      */
     protected $object;
+    protected $property;
+    protected $client;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -20,6 +22,22 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $this->property = new \jarekkozak\sys\PropertiesFile([
+            'filename' => '$HOME/.secret/kiesrv-secret'
+        ]);
+        if ($this->property->getProperty('kie-server') == NULL) {
+            echo 'Property file does not exist:';
+            echo 'With content:';
+            echo 'kie-server=exchange_address_with_context';
+            echo 'kie-user=username or email';
+            echo 'kie-password=password';
+        }
+        $this->client = new KieClient([
+            'context' => $this->property->getProperty('kie-server'),
+            'username' => $this->property->getProperty('kie-user'),
+            'password' => $this->property->getProperty('kie-password'),
+        ]);
+
     }
 
     /**
@@ -36,13 +54,8 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
      */
     public function testListenHeart()
     {
-        $client = new KieClient([
-            'context' => 'http://localhost:8081/kie-server',
-            'username' => 'kiesrv',
-            'password' => 'kiesrv',
-        ]);
         $hb = new KieHB([
-            'client' => $client,
+            'client' => $this->client,
         ]);
         $this->assertTrue($hb->listenHeart());
     }
@@ -52,19 +65,11 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetHeartBeat()
     {
-        $client = new KieClient([
-            'context' => 'http://localhost:8081/kie-server',
-            'username' => 'kiesrv',
-            'password' => 'kiesrv',
-        ]);
         $hb = new KieHB([
-            'client' => $client,
+            'client' => $this->client,
         ]);
         $res = $hb->getHeartBeat();
         $this->assertCount(2,$res);
     }
-
-
-
 
 }

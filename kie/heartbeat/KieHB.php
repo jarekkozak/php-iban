@@ -26,7 +26,7 @@ class KieHB extends KieContainer
     public function init()
     {
         parent::init();
-        $this->container = 'containers/perdiem';
+        $this->container = 'containers/heartbeat';
     }
 
     /**
@@ -44,8 +44,7 @@ class KieHB extends KieContainer
         $request->time    = new Moment();
 
 
-        $config    = ['factName' => 'trimetis.perdiem.Request',
-            'object' => $request,
+        $config    = ['factName' => 'trimetis.heartbeat.Request',
             'identifier' => 'hb_request',
             'nodes' => [
                 'message',
@@ -58,7 +57,7 @@ class KieHB extends KieContainer
                 ]
             ],
         ];
-        $this->req = new KieFact($config);
+        $this->req = new KieFact($request,$config);
         $batch->addFact($this->req);
         $batch->addQuery(new KieQuery([
             'name' => 'getResponse',
@@ -74,7 +73,7 @@ class KieHB extends KieContainer
         }
 
         $response  = new KieHBResponse();
-        $reqFact   = new KieFact(['factName' => 'trimetis.perdiem.Response', 'object' => $response,
+        $reqFact   = new KieFact($response,['factName' => 'trimetis.heartbeat.Response',
             'nodes' => [
                 'output',
                 'responseDate',
