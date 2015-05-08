@@ -23,17 +23,16 @@ class KieFact extends Object
 {
     protected $identifier;
     protected $factName = null;   // Fact name e.g. org.demo.Message
-    protected $nodes = null;      // List of nodes to be sent
-    protected $object = null;
-
+    protected $nodes    = null;      // List of nodes to be sent
+    protected $object   = null;
 
     public function __construct($object, $config = array())
     {
         $this->object = $object;
-        if($object instanceof IKieFactSourceObject){
-            $this->factName = $object->getFactName();
+        if ($object instanceof IKieFactSourceObject) {
+            $this->factName   = $object->getFactName();
             $this->identifier = $object->getIdentifier();
-            $this->nodes = $object->getNodes();
+            $this->nodes      = $object->getNodes();
         }
         parent::__construct($config);
     }
@@ -177,30 +176,31 @@ class KieFact extends Object
         $properties = json_decode(json_encode($this->object), true);
         foreach ($properties as $property => $value) {
             // if key is in array
-            if(in_array($property, $this->nodes) && isset($result[$property])){
-                $converter = $this->getDefaultConverter($this->object->{$property});
-                $this->object->{$property} = $converter==null?$result[$property]:$converter->toObject($result[$property]);
+            if (in_array($property, $this->nodes) && isset($result[$property])) {
+                $converter                 = $this->getDefaultConverter($this->object->{$property});
+                $this->object->{$property} = $converter == null ? $result[$property]
+                        : $converter->toObject($result[$property]);
             }
             // field is defined in array
-            if(array_key_exists($property,$this->nodes)){
+            if (array_key_exists($property, $this->nodes)) {
                 $config = $this->nodes[$property];
-                if(isset($config['in']) && $config['in']==false) {
+                if (isset($config['in']) && $config['in'] == false) {
                     continue; // In not allowed
                 }
                 $name = $property;
-                if(isset($config['name'])){
+                if (isset($config['name'])) {
                     $name = $config['name'];
                 }
-                if(!isset($result[$name])){
+                if (!isset($result[$name])) {
                     continue; // Not exist in result
                 }
                 $converter = $this->getDefaultConverter($this->object->{$property});
-                if(isset($config['converter'])){
+                if (isset($config['converter'])) {
                     $converter = $config['converter'];
                 }
-                $this->object->{$property} = $converter==null?$result[$name]:$converter->toObject($result[$name]);
+                $this->object->{$property} = $converter == null ? $result[$name]
+                        : $converter->toObject($result[$name]);
             }
-
         }
         return true;
     }
@@ -214,7 +214,7 @@ class KieFact extends Object
         foreach ($results as $key => $value) {
             if (isset($value['@attributes']['identifier']) && $value['@attributes']['identifier']
                 == $this->identifier && isset($value[$this->factName])) {
-                if($this->parseResult($value[$this->factName])){
+                if ($this->parseResult($value[$this->factName])) {
                     return true;
                 }
             }
@@ -233,18 +233,21 @@ class KieFact extends Object
         foreach ($results as $key => $value) {
             if (isset($value['@attributes']['identifier']) && $value['@attributes']['identifier']
                 == $this->identifier && isset($value['query-results']['row'])) {
-                foreach ($value['query-results']['row'] as $fact) {
-                    if(!isset($fact[$this->factName])){
+                if (count($value['query-results']['row']) == 2 && isset($value['query-results']['row'][$this->factName])) {
+                    $this->parseResult($value['query-results']['row'][$this->factName]);
+                    $query[] = $this->object;
+                    break;
+                }
+                foreach ($value['query-results']['row'] as $key => $fact) {
+                    if (!isset($fact[$this->factName])) {
                         continue;
                     }
                     $copy = clone $this->object; // save template
-                    if($this->parseResult($fact[$this->factName])){
+                    if ($this->parseResult($fact[$this->factName])) {
                         $query[] = $this->object;
                     }
                     $this->object = $copy; //restore empty object
                 }
-
-
             }
         }
         return $query;
