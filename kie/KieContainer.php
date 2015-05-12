@@ -70,6 +70,20 @@ class KieContainer extends \yii\base\Object
         return $this->client->getServerUrl($this->container);
     }
 
+    /**
+     * Stops and dispose container
+     */
+    public function stopContainer(){
+
+    }
+
+    /**
+     * Start container 
+     */
+    public function startContainer(){
+
+    }
+
     public function getContainerInfo(){
         if($this->client->GET($this->_url())==false){
             return false;

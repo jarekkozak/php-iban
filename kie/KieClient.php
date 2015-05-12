@@ -42,6 +42,22 @@ class KieClient extends Object
         }
         return false;
     }
+    /**
+     * PUT command
+     * @return bool true if ok
+     */
+    public function PUT($url,$data)
+    {
+        $this->response = Request::put($url,$data,'xml')
+            ->authenticateWith($this->username, $this->password)
+            ->expectsType('xml')
+            ->send();
+        if($this->isOk()){
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * POST command

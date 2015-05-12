@@ -30,10 +30,9 @@ use yii\web\JsExpression;
  *
  * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com
  */
-class Select2AjaxConfig extends Object
+class Select2AjaxConfigOld extends Object
 {
     public $url = NULL;
-    public $initValueText = '';
     public $options = [];
 
     public function init()
@@ -50,21 +49,40 @@ class Select2AjaxConfig extends Object
 
         $out = [
             'options' => ['placeholder' => 'Enter data...'],
-            'initValueText' => $this->initValueText,
             'pluginOptions' => [
                 'allowClear' => true,
                 'ajax' => [
                     'url' => $this->url,
                     'dataType' => 'json',
-                    'data' => new JsExpression('function(params) { return {q:params.term}; }'),
+                    'data' => new JsExpression('function(term,page) { return {search:term}; }'),
                     'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
                 ],
-                'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-                'templateResult' => new JsExpression('function(result) { return result.text; }'),
-                'templateSelection' => new JsExpression('function (result) { return result.text; }'),
+                'initSelection' => $this->initSelection(),
             ]
         ];
         return ArrayHelper::merge($out,$this->options);
     }
 
+    /**
+     * Wygenerowanie skryptu callback dla select2
+     * @param type $url
+     */
+    public function initScript()
+    {
+        return <<< SCRIPT
+function (element, callback) {
+    var id=$(element).val();
+    if (id !== "") {
+        $.ajax("$this->url&id=" + id, {
+            dataType: "json"
+        }).done(function(data) { callback(data.results);});
+    }
+}
+SCRIPT;
+    }
+
+    public function initSelection()
+    {
+        return new JsExpression($this->initScript());
+    }
 }
