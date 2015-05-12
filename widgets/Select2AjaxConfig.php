@@ -56,7 +56,7 @@ class Select2AjaxConfig extends Object
                 'ajax' => [
                     'url' => $this->url,
                     'dataType' => 'json',
-                    'data' => new JsExpression('function(params) { return {q:params.term}; }'),
+                    'data' => new JsExpression('function(params) { return {search:params.term}; }'),
                     'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
                 ],
                 'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
