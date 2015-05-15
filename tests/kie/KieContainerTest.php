@@ -67,7 +67,7 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
         $client    = $this->getClient();
         $container = new KieContainer([
             'client' => $client,
-            'container' => 'containers/heartbeat'
+            'container' => 'heartbeat'
         ]);
         $info      = $container->getContainerInfo();
     }
@@ -77,7 +77,7 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
         $client    = $this->getClient();
         $container = new KieContainer([
             'client' => $client,
-            'container' => 'containers/heartbeat'
+            'container' => 'heartbeat'
         ]);
 ///
         $batch     = new KieBatch(['lookup' => 'ksession']);
@@ -110,7 +110,6 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
             'name' => 'getResponse',
             'identifier' => 'response'
         ]));
-
 ///
         $res     = $container->execute($batch);
         $this->assertTrue($res);

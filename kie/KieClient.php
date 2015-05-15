@@ -7,7 +7,9 @@
 
 namespace jarekkozak\kie;
 
+use Exception;
 use Httpful\Request;
+use Httpful\Response;
 use yii\base\Object;
 
 /**
@@ -21,11 +23,10 @@ class KieClient extends Object
     public $username;
     public $password;
 
-    /* @var $response \Httpful\Response */
+    /* @var $response Response */
     protected $response;
 
-    const SERVER_PATH     = '/services/rest/server';
-    const CONTAINERS_PATH = '/containers';
+    const SERVER_PATH = '/services/rest/server';
 
     /**
      * GET command
@@ -33,43 +34,57 @@ class KieClient extends Object
      */
     public function GET($url)
     {
-        $this->response = Request::get($url)
-            ->authenticateWith($this->username, $this->password)
-            ->expectsType('xml')
-            ->send();
-        if($this->isOk()){
-            return true;
+        try {
+            $this->response = Request::get($url)
+                ->authenticateWith($this->username, $this->password)
+                ->expectsType('xml')
+                ->send();
+        } catch (Exception $exc) {
+            return false;
         }
-        return false;
-    }
-    /**
-     * PUT command
-     * @return bool true if ok
-     */
-    public function PUT($url,$data)
-    {
-        $this->response = Request::put($url,$data,'xml')
-            ->authenticateWith($this->username, $this->password)
-            ->expectsType('xml')
-            ->send();
-        if($this->isOk()){
+
+
+        if ($this->isOk()) {
             return true;
         }
         return false;
     }
 
+    /**
+     * PUT command
+     * @return bool true if ok
+     */
+    public function PUT($url, $data)
+    {
+        try {
+            $this->response = Request::put($url, $data, 'xml')
+                ->authenticateWith($this->username, $this->password)
+                ->expectsType('xml')
+                ->send();
+        } catch (Exception $ex) {
+            return false;
+        }
+        if ($this->isOk()) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * POST command
      * @return bool true if ok
      */
-    public function POST($url,$data)
+    public function POST($url, $data)
     {
-        $this->response = Request::post($url,$data,'xml')
+        try{
+        $this->response = Request::post($url, $data, 'xml')
             ->authenticateWith($this->username, $this->password)
             ->expectsType('xml')
             ->send();
-        if($this->isOk()){
+        } catch (Exception $ex) {
+            return false;
+        }
+        if ($this->isOk()) {
             return true;
         }
         return false;
@@ -109,7 +124,7 @@ class KieClient extends Object
             return FALSE;
         }
         $result = $this->getKieResponse();
-        if(!$result->isSuccess()){
+        if (!$result->isSuccess()) {
             return FALSE;
         }
         return $result->getData()['kie-server-info'];

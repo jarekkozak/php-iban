@@ -20,6 +20,8 @@ class KieContainer extends \yii\base\Object
 
     protected $container;
 
+    protected $containers_context = 'containers';
+
     /* @var jarekkozak\kie\KieResponse */
     protected $response;
     protected $type;
@@ -67,7 +69,7 @@ class KieContainer extends \yii\base\Object
     }
 
     protected function _url(){
-        return $this->client->getServerUrl($this->container);
+        return $this->client->getServerUrl($this->containers_context.'/'.$this->container);
     }
 
     /**

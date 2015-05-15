@@ -26,7 +26,7 @@ class KieHB extends KieContainer
     public function init()
     {
         parent::init();
-        $this->container = 'containers/heartbeat';
+        $this->container = 'heartbeat';
     }
 
     /**
