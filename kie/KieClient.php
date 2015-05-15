@@ -43,7 +43,6 @@ class KieClient extends Object
             return false;
         }
 
-
         if ($this->isOk()) {
             return true;
         }
@@ -58,6 +57,26 @@ class KieClient extends Object
     {
         try {
             $this->response = Request::put($url, $data, 'xml')
+                ->authenticateWith($this->username, $this->password)
+                ->expectsType('xml')
+                ->send();
+        } catch (Exception $ex) {
+            return false;
+        }
+        if ($this->isOk()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * PUT command
+     * @return bool true if ok
+     */
+    public function DELETE($url)
+    {
+        try {
+            $this->response = Request::delete($url)
                 ->authenticateWith($this->username, $this->password)
                 ->expectsType('xml')
                 ->send();
@@ -132,7 +151,7 @@ class KieClient extends Object
 
     public function getKieResponse()
     {
-        if ($this->isOk()) {
+        if ($this->response->body!=null) {
             return new KieResponse(['body' => $this->response->body]);
         }
         return FALSE;

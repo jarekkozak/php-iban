@@ -59,8 +59,23 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Creates KIE project
+     * @return \jarekkozak\kie\KieClient
+     */
+    public function getProject()
+    {
+        $project = new KieProject([
+            'container_id' => 'heartbeat',
+            'group_id' => 'trimetis',
+            'artifact_id' => 'heartbeat',
+            'version' => '1.0',
+            'client'=>$this->getClient()
+        ]);
+        return $project;
+    }
+
+    /**
      * @covers jarekkozak\kie\KieContainer::getContainerInfo
-     * @todo   Implement testGetContainerInfo().
      */
     public function testGetContainerInfo()
     {
@@ -72,6 +87,50 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
         $info      = $container->getContainerInfo();
     }
 
+    /**
+     * @covers jarekkozak\kie\KieContainer::getContainerInfo
+     */
+    public function testStartContainer()
+    {
+        $client  = $this->getClient();
+        $project = $this->getProject();
+        $project->disposeProject();
+
+        $container = new KieContainer([
+            'client' => $client,
+            'container' => 'heartbeat',
+            'kieProject' => $this->getProject()
+        ]);
+        $this->assertFalse($container->getContainerInfo());
+        $this->assertTrue($container->startContainer());
+
+        $exp = [
+            '@attributes' => [
+                'container-id' => 'heartbeat',
+                'status' => 'STARTED'
+            ],
+            'release-id' => [
+                'artifact-id' => 'heartbeat',
+                'group-id' => 'trimetis',
+                'version' => '1.0'
+            ],
+            'resolved-release-id' => [
+                'artifact-id' => 'heartbeat',
+                'group-id' => 'trimetis',
+                'version' => '1.0'
+            ],
+            'scanner' => [
+                '@attributes' => [
+                    'status' => 'DISPOSED'
+                ]
+            ]
+        ];
+        $this->assertEquals($exp,$container->getContainerInfo());
+    }
+
+    /**
+     * @covers jarekkozak\kie\KieContainer::execute
+     */
     public function testExecute()
     {
         $client    = $this->getClient();
@@ -101,7 +160,7 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
 
         $config['identifier'] = 'request1';
 
-        $reqFact1 = new KieFact($request,$config);
+        $reqFact1 = new KieFact($request, $config);
 
 
         $batch->addFact($reqFact1);

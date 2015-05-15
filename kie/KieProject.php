@@ -21,12 +21,14 @@ class KieProject extends Object
     public $group_id;
     public $artifact_id;
     public $version = 'LATEST';
-
-
+    public $container_context = 'containers';
 
     /* @var jarekkozak\kie\KieClient */
     public $client;
     public $response;
+
+    public $info;
+
 //Getters
 
     function getContainer_id()
@@ -68,7 +70,7 @@ class KieProject extends Object
     {
         $this->version = $version;
     }
-    
+
     function getClient()
     {
         return $this->client;
@@ -117,26 +119,61 @@ class KieProject extends Object
 
     public function _url()
     {
-        return $this->client->getServerUrl('containers/'.$this->container_id);
-        //$this->client->getServerUrl('containers/');
+        return $this->client->getServerUrl($this->container_context.'/'.$this->container_id);
     }
 
+    /**
+     * Starts project 
+     * @return boolean
+     */
     public function scanProject()
     {
         if ($this->client == null) {
             return FALSE;
         }
-        if ($this->client->PUT($this->_url(), $this->toXml()) == false) {
-            return false;
-        }
+        $ret = $this->client->PUT($this->_url(), $this->toXml());
         $this->response = $this->client->getKieResponse();
         /* @var $this->response jarekkozak\kie\KieResponse */
-        if (!$this->response->isSuccess()) {
-            return FALSE;
-        }
         $this->info = $this->response->getData();
-        return $this->info;
+        if ($this->response->isSuccess() && $ret) {
+            return true;
+        }
+        return false;
     }
 
-    
+    /**
+     * Delete container
+     * @return boolean
+     */
+    public function disposeProject()
+    {
+        if ($this->client == null) {
+            return FALSE;
+        }
+        $ret = $this->client->DELETE($this->_url());
+        $this->response = $this->client->getKieResponse();
+        /* @var $this->response jarekkozak\kie\KieResponse */
+        $this->info = $this->response->getData();
+        if ($this->response->isSuccess() && $ret) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if container is started
+     * @return type
+     */
+    public function isStarted(){
+        if(!isset($this->info['kie-container']['@attributes'])){
+            return false;
+        }
+        $status = $this->info['kie-container']['@attributes'];
+        if(!isset($status['container-id']) || !isset($status['status'])){
+            return false;
+        }
+        return (bool)($status['container-id'] == $this->container_id & $status['status'] == 'STARTED');
+    }
+
+
 }

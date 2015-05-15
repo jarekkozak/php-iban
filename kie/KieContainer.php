@@ -28,6 +28,29 @@ class KieContainer extends \yii\base\Object
     protected $msg;
     protected $info;
 
+    /* @var $kieProject KieProject */
+    protected $kieProject;
+
+    function getContainers_context()
+    {
+        return $this->containers_context;
+    }
+
+    function getKieProject()
+    {
+        return $this->kieProject;
+    }
+
+    function setContainers_context($containers_context)
+    {
+        $this->containers_context = $containers_context;
+    }
+
+    function setKieProject($kieProject)
+    {
+        $this->kieProject = $kieProject;
+    }
+
     function getClient()
     {
         return $this->client;
@@ -76,16 +99,31 @@ class KieContainer extends \yii\base\Object
      * Stops and dispose container
      */
     public function stopContainer(){
-
+        if($this->kieProject){
+            $this->kieProject->setClient($this->client);
+            return $this->kieProject->disposeProject();
+        }
+        return false;
     }
 
     /**
-     * Start container 
+     * Start container  with supplied project
      */
     public function startContainer(){
-
+        if($this->getContainerInfo()){
+            return true;
+        }
+        if($this->kieProject!=null){
+            $this->kieProject->setClient($this->client);
+            return $this->kieProject->scanProject();
+        }
+        return false;
     }
 
+    /**
+     * Gets container info 
+     * @return boolean
+     */
     public function getContainerInfo(){
         if($this->client->GET($this->_url())==false){
             return false;
