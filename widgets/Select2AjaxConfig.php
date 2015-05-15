@@ -33,7 +33,7 @@ use yii\web\JsExpression;
 class Select2AjaxConfig extends Object
 {
     public $url = NULL;
-    public $initValueText = '';
+    public $initValueText = null;
     public $options = [];
 
     public function init()
@@ -49,7 +49,7 @@ class Select2AjaxConfig extends Object
     {
 
         $out = [
-            'options' => ['placeholder' => 'Enter data...'],
+            'options' => ['placeholder' => 'Enter data...','style'=>'width: 100%;'],
             'initValueText' => $this->initValueText,
             'pluginOptions' => [
                 'allowClear' => true,
@@ -57,7 +57,6 @@ class Select2AjaxConfig extends Object
                     'url' => $this->url,
                     'dataType' => 'json',
                     'data' => new JsExpression('function(params) { return {search:params.term}; }'),
-                    'results' => new JsExpression('function(data,page) { return {results:data.results}; }'),
                 ],
                 'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
                 'templateResult' => new JsExpression('function(result) { return result.text; }'),
