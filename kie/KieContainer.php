@@ -92,6 +92,9 @@ class KieContainer extends \yii\base\Object
     }
 
     protected function _url(){
+        if($this->container==null && $this->kieProject != null){
+            $this->container = $this->kieProject->getContainer_id();
+        }
         return $this->client->getServerUrl($this->containers_context.'/'.$this->container);
     }
 
@@ -133,8 +136,12 @@ class KieContainer extends \yii\base\Object
         if(!$this->response->isSuccess()){
             return FALSE;
         }
-        $this->info = $this->response->getData()['kie-container'];
-        return $this->info;
+        $data = $this->response->getData();
+        if(isset($data['kie-container'])){
+            $this->info = $data['kie-container'];
+            return $this->info;
+        }
+        return false;
     }
 
     /**
