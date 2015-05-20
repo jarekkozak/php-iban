@@ -133,6 +133,9 @@ class KieProject extends Object
         }
         $ret = $this->client->PUT($this->_url(), $this->toXml());
         $this->response = $this->client->getKieResponse();
+        if($this->response==null){
+            return false;
+        }
         /* @var $this->response jarekkozak\kie\KieResponse */
         $this->info = $this->response->getData();
         if ($this->response->isSuccess() && $ret) {
@@ -152,6 +155,9 @@ class KieProject extends Object
         }
         $ret = $this->client->DELETE($this->_url());
         $this->response = $this->client->getKieResponse();
+        if($this->response == null) {
+            return false;
+        }
         /* @var $this->response jarekkozak\kie\KieResponse */
         $this->info = $this->response->getData();
         if ($this->response->isSuccess() && $ret) {

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<execution-results>
+  <result identifier="555af1fa2c73e">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-12 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2cb08">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-23 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2c9b4">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-19 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2c8a8">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-16 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2c2bd">
+    <trimetis.perdiem.poland.PerDiemRate>
+      <country>DE</country>
+      <rate>4900</rate>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.PerDiemRate>
+  </result>
+  <result identifier="555af1fa2cac1">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-22 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="response">
+    <query-results>
+      <identifiers>
+        <identifier>perdiem</identifier>
+      </identifiers>
+      <row>
+        <trimetis.perdiem.poland.PerDiem>
+          <start>2015-04-10 08:00:00.0 UTC</start>
+          <end>2015-04-25 16:00:00.0 UTC</end>
+          <days>15</days>
+          <hours>8</hours>
+          <minutes>0</minutes>
+          <amount>73500</amount>
+          <currency>EUR</currency>
+          <country>DE</country>
+          <full>15</full>
+          <half>1</half>
+          <onethird>0</onethird>
+        </trimetis.perdiem.poland.PerDiem>
+        <fact-handle external-form="0:18:122056453:122056453:19:DEFAULT:NON_TRAIT"/>
+      </row>
+    </query-results>
+  </result>
+  <result identifier="555af1fa2c900">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-17 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2c958">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-18 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2cb60">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-24 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="555af1fa2ca69">
+    <trimetis.perdiem.poland.Meal>
+      <date>2015-04-21 07:00:00.0 UTC</date>
+      <meal>1</meal>
+      <amount>735</amount>
+      <currency>EUR</currency>
+    </trimetis.perdiem.poland.Meal>
+  </result>
+  <result identifier="meals">
+    <query-results>
+      <identifiers>
+        <identifier>meal</identifier>
+      </identifiers>
+      <row>
+        <trimetis.perdiem.poland.Meal>
+          <date>2015-04-11 07:00:00.0 UTC</date>
+          <meal>1</meal>
+          <amount>735</amount>
+          <currency>EUR</currency>
+        </trimetis.perdiem.poland.Meal>
+        <fact-handle external-form="0:3:1741506652:1741506652:3:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:4:1447675201:1447675201:4:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal>
+          <date>2015-04-13 07:00:00.0 UTC</date>
+          <meal>1</meal>
+          <amount>735</amount>
+          <currency>EUR</currency>
+        </trimetis.perdiem.poland.Meal>
+        <fact-handle external-form="0:5:87382697:87382697:5:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal>
+          <date>2015-04-14 07:00:00.0 UTC</date>
+          <meal>1</meal>
+          <amount>735</amount>
+          <currency>EUR</currency>
+        </trimetis.perdiem.poland.Meal>
+        <fact-handle external-form="0:6:1909657578:1909657578:6:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal>
+          <date>2015-04-15 07:00:00.0 UTC</date>
+          <meal>1</meal>
+          <amount>735</amount>
+          <currency>EUR</currency>
+        </trimetis.perdiem.poland.Meal>
+        <fact-handle external-form="0:7:1471809031:1471809031:7:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[4]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:8:1977737871:1977737871:8:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[8]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:9:1088509631:1088509631:9:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[9]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:10:168179424:168179424:10:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[3]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:11:503099716:503099716:11:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal>
+          <date>2015-04-20 07:00:00.0 UTC</date>
+          <meal>1</meal>
+          <amount>735</amount>
+          <currency>EUR</currency>
+        </trimetis.perdiem.poland.Meal>
+        <fact-handle external-form="0:12:953808573:953808573:12:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[11]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:13:1842745203:1842745203:13:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[6]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:14:9469787:9469787:14:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[2]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:15:244920231:244920231:15:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal reference="../../../../result[10]/trimetis.perdiem.poland.Meal"/>
+        <fact-handle external-form="0:16:1795654765:1795654765:16:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.perdiem.poland.Meal>
+          <date>2015-04-25 07:00:00.0 UTC</date>
+          <meal>1</meal>
+          <amount>735</amount>
+          <currency>EUR</currency>
+        </trimetis.perdiem.poland.Meal>
+        <fact-handle external-form="0:17:981944064:981944064:17:DEFAULT:NON_TRAIT"/>
+      </row>
+    </query-results>
+  </result>
+  <result identifier="555af1fa2c7f3">
+    <trimetis.perdiem.poland.Meal reference="../../result[12]/query-results/row[4]/trimetis.perdiem.poland.Meal"/>
+  </result>
+  <result identifier="555af1fa2cbbc">
+    <trimetis.perdiem.poland.Meal reference="../../result[12]/query-results/row[15]/trimetis.perdiem.poland.Meal"/>
+  </result>
+  <result identifier="555af1fa2c6cc">
+    <trimetis.perdiem.poland.Meal reference="../../result[12]/query-results/row/trimetis.perdiem.poland.Meal"/>
+  </result>
+  <result identifier="555af1fa2ca0b">
+    <trimetis.perdiem.poland.Meal reference="../../result[12]/query-results/row[10]/trimetis.perdiem.poland.Meal"/>
+  </result>
+  <result identifier="555af1fa2c850">
+    <trimetis.perdiem.poland.Meal reference="../../result[12]/query-results/row[5]/trimetis.perdiem.poland.Meal"/>
+  </result>
+  <result identifier="555af1fa2c24c">
+    <trimetis.perdiem.poland.TripLeg>
+      <startCountry>PL</startCountry>
+      <start reference="../../../result[7]/query-results/row/trimetis.perdiem.poland.PerDiem/start"/>
+      <stopCountry>DE</stopCountry>
+      <stop reference="../../../result[7]/query-results/row/trimetis.perdiem.poland.PerDiem/end"/>
+    </trimetis.perdiem.poland.TripLeg>
+  </result>
+  <result identifier="555af1fa2c797">
+    <trimetis.perdiem.poland.Meal reference="../../result[12]/query-results/row[3]/trimetis.perdiem.poland.Meal"/>
+  </result>
+  <fact-handle identifier="555af1fa2c73e" external-form="0:4:1447675201:1447675201:4:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2cb08" external-form="0:15:244920231:244920231:15:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c9b4" external-form="0:11:503099716:503099716:11:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c8a8" external-form="0:8:1977737871:1977737871:8:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c2bd" external-form="0:2:2130976753:2130976753:2:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2cac1" external-form="0:14:9469787:9469787:14:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c900" external-form="0:9:1088509631:1088509631:9:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c958" external-form="0:10:168179424:168179424:10:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2cb60" external-form="0:16:1795654765:1795654765:16:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2ca69" external-form="0:13:1842745203:1842745203:13:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c7f3" external-form="0:6:1909657578:1909657578:6:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2cbbc" external-form="0:17:981944064:981944064:17:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c6cc" external-form="0:3:1741506652:1741506652:3:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2ca0b" external-form="0:12:953808573:953808573:12:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c850" external-form="0:7:1471809031:1471809031:7:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c24c" external-form="0:1:1478206807:1478206807:1:DEFAULT:NON_TRAIT"/>
+  <fact-handle identifier="555af1fa2c797" external-form="0:5:87382697:87382697:5:DEFAULT:NON_TRAIT"/>
+</execution-results>

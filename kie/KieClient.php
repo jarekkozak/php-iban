@@ -151,7 +151,7 @@ class KieClient extends Object
 
     public function getKieResponse()
     {
-        if ($this->response->body!=null) {
+        if ($this->response!=null && $this->response->body!=null) {
             return new KieResponse(['body' => $this->response->body]);
         }
         return FALSE;
