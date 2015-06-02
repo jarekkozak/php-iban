@@ -168,7 +168,9 @@ class KieFact extends Object
     }
 
     /**
-     * Parse result into currenct object 
+     * Parse result into currenct object, should not be used direcly but
+     * via updateFact or parseQuery.
+     * 
      * @param array $result
      */
     public function parseResult($result)
@@ -223,7 +225,8 @@ class KieFact extends Object
     }
 
     /**
-     * Parse query 
+     * Parse query, returns array of instances of object of given class
+     *
      * @param array $result
      * @return array
      */

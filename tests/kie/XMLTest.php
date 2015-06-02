@@ -32,11 +32,106 @@ class XMLTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers jarekkozak\kie\XML::parse
-     * @todo   Implement testParse().
      */
     public function testParse()
     {
+
+        $a = '<execution-results>
+  <result identifier="response">
+    <query-results>
+      <identifiers>
+        <identifier>r</identifier>
+      </identifiers>
+      <row>
+        <trimetis.heartbeat.Response>
+          <output>HeartBeat</output>
+          <responseDate>2015-06-01 20:07:01.111 UTC</responseDate>
+        </trimetis.heartbeat.Response>
+        <fact-handle external-form="0:2:1059301429:1059301429:2:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.heartbeat.Response>
+          <output>I&apos;m alive</output>
+          <responseDate>2015-06-01 20:07:01.463 UTC</responseDate>
+        </trimetis.heartbeat.Response>
+        <fact-handle external-form="0:3:1039683573:1039683573:3:DEFAULT:NON_TRAIT"/>
+      </row>
+    </query-results>
+  </result>
+  <result identifier="hb_request">
+    <trimetis.heartbeat.Request>
+      <message>HeartBeat</message>
+      <time reference="../../../result/query-results/row/trimetis.heartbeat.Response/responseDate"/>
+      <start>2015-06-01 20:07:01.0 UTC</start>
+    </trimetis.heartbeat.Request>
+  </result>
+  <fact-handle identifier="hb_request" external-form="0:1:1126511283:1126511283:1:DEFAULT:NON_TRAIT"/>
+</execution-results>';
+
+        $expected = json_decode(json_encode((array)simplexml_load_string($a)),TRUE);
+        $this->assertTrue(isset($expected['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']));
+        $this->assertEquals("../../../result/query-results/row/trimetis.heartbeat.Response/responseDate",$expected['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']);
+        $this->assertEquals([
+            '@attributes'=>[
+                'reference'=>"../../../result/query-results/row/trimetis.heartbeat.Response/responseDate"
+            ]
+        ],$expected['result'][1]['trimetis.heartbeat.Request']['time']);
+
         $parser = new XML();
-        $parser->parse(__DIR__.'/test.xml');
+        $result = $parser->parse($a);
+
+        $this->assertFalse(isset($result['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']));
+        $this->assertEquals("2015-06-01 20:07:01.111 UTC",$result['result'][1]['trimetis.heartbeat.Request']['time']);
+
+
+        //"../../../result/query-results/row/trimetis.heartbeat.Response/responseDate"
+        //$result[1]['trimetis.heartbeat.Request']['time']
+
+
     }
+
+    /**
+     * @covers jarekkozak\kie\XML::parse
+     */
+    public function testParseFile()
+    {
+        $parser = new XML();
+        $parser->parseFile(__DIR__.'/test.xml');
+
+        $a = '<execution-results>
+  <result identifier="response">
+    <query-results>
+      <identifiers>
+        <identifier>r</identifier>
+      </identifiers>
+      <row>
+        <trimetis.heartbeat.Response>
+          <output>HeartBeat</output>
+          <responseDate>2015-06-01 20:07:01.0 UTC</responseDate>
+        </trimetis.heartbeat.Response>
+        <fact-handle external-form="0:2:1059301429:1059301429:2:DEFAULT:NON_TRAIT"/>
+      </row>
+      <row>
+        <trimetis.heartbeat.Response>
+          <output>I&apos;m alive</output>
+          <responseDate>2015-06-01 20:07:01.463 UTC</responseDate>
+        </trimetis.heartbeat.Response>
+        <fact-handle external-form="0:3:1039683573:1039683573:3:DEFAULT:NON_TRAIT"/>
+      </row>
+    </query-results>
+  </result>
+  <result identifier="hb_request">
+    <trimetis.heartbeat.Request>
+      <message>HeartBeat</message>
+      <time reference="../../../result/query-results/row/trimetis.heartbeat.Response/responseDate"/>
+      <start>2015-06-01 20:07:01.0 UTC</start>
+    </trimetis.heartbeat.Request>
+  </result>
+  <fact-handle identifier="hb_request" external-form="0:1:1126511283:1126511283:1:DEFAULT:NON_TRAIT"/>
+</execution-results>';
+
+    }
+
+
+
 }

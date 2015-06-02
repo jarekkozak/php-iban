@@ -150,7 +150,9 @@ class KieContainer extends \yii\base\Object
      * @return boolean
      */
     public function execute(KieBatch $batch){
-        if($this->client->POST($this->_url(),$batch->toXml())==false){
+        $data = $batch->toXml();
+        \Yii::trace("KieContainer prepares data: $data", __METHOD__);
+        if($this->client->POST($this->_url(),$data)==false){
             return FALSE;
         };
         $this->response = $this->client->getKieResponse();
@@ -165,8 +167,10 @@ class KieContainer extends \yii\base\Object
         if(!$this->response->isSuccess()){
             return FALSE;
         }
-        $results = simplexml_load_string($this->response->getData()['results']);
-        return json_decode(json_encode($results),TRUE);
+        $data = $this->response->getData()['results'];
+        \Yii::trace("KieContainer get result: $data", __METHOD__);
+        $parser = new XML();
+        return $parser->parse($data);
     }
 
 }

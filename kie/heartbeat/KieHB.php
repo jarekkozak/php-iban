@@ -82,7 +82,14 @@ class KieHB extends KieContainer
         ]);
 
         $results = $this->getResults();
-        $query = $reqFact->parseQuery($results['result']);
-        return $query;
+        $response = $reqFact->parseQuery($results['result']);
+
+        $request = new KieHBRequest();
+        $reqFact = new KieFact($request,['identifier' => 'hb_request']);
+        $reqFact->updateFact($results['result']);
+        return [
+            'response'=>$response,
+            'request'=>$request,
+        ];
     }
 }

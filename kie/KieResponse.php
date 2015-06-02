@@ -18,8 +18,8 @@ class KieResponse extends \yii\base\Object {
 
     public function setBody(\SimpleXMLElement $body) {
         $this->data = null;
-        $json = json_encode($body);
-        $data = json_decode($json,TRUE);
+        $parser = new XML();
+        $data = $parser->toArray($body);
         if(!isset($data['@attributes']['type']) || !isset($data['@attributes']['msg'])) {
             return;
         }

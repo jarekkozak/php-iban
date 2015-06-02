@@ -70,6 +70,10 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
         ]);
         $res = $hb->getHeartBeat();
         $this->assertCount(2,$res);
+        $this->assertTrue(isset($res['response']));
+        $this->assertTrue(isset($res['request']));
+        $request = $res['request'];
+        $this->assertInstanceOf('\Moment\Moment',$request->time);
     }
 
 }

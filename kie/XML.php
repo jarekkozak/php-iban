@@ -8,38 +8,80 @@
 namespace jarekkozak\kie;
 
 /**
- * Description of XML
+ * XML parsing class with xstream object reference support.
+ *
+ * XML is converted inti table, node attributes are stored in "@attributes" key
  *
  * @author Jarosław Kozak <jaroslaw.kozak68@gmail.com>
  */
 class XML
 {
 
-    public function parse($file)
-    {
-        $body = simplexml_load_string(file_get_contents($file));
-        $result = $this->xml2array($body->asXML());
+    /**
+     * Parse xml file
+     * @param string $file filename
+     * @return array
+     */
+    public function parseFile($file){
+        return $this->parse(file_get_contents($file));
     }
 
-    function xml2array($fname)
+    /**
+     * Parse xml string
+     * @param string $xml
+     * @return array
+     */
+    public function parse($xml)
     {
-        $sxi = new \SimpleXmlIterator($fname, null, true);
-        return sxiToArray($sxi);
+        $source = simplexml_load_string($xml);
+        return $this->SimpleXML2ArrayWithCDATASupport($source);
     }
 
-    function sxiToArray($sxi)
+    /**
+     * Converts to array xml object
+     * @param \SimpleXMLElement $xml
+     * @return array
+     */
+    public function toArray(\SimpleXMLElement $xml){
+        return $this->SimpleXML2ArrayWithCDATASupport($xml);
+    }
+
+    /**
+     * Walk through xml object, resolves references and convert it inti tables.
+     * @param mixed $xml
+     * @return array|string
+     */
+    protected function SimpleXML2ArrayWithCDATASupport($xml)
     {
-        $a = array();
-        for ($sxi->rewind(); $sxi->valid(); $sxi->next()) {
-            if (!array_key_exists($sxi->key(), $a)) {
-                $a[$sxi->key()] = array();
-            }
-            if ($sxi->hasChildren()) {
-                $a[$sxi->key()][] = sxiToArray($sxi->current());
-            } else {
-                $a[$sxi->key()][] = strval($sxi->current());
+        if(is_string($xml)){
+            return $xml;
+        }
+        
+        $array = (array) $xml;
+        if (count($array) == 0) {
+            $array = (string) $xml;
+        }
+        if (is_array($array)) {
+            //recursive Parser
+            foreach ($array as $key => $value) {
+                if (is_object($value)) {
+                    if (strpos(get_class($value), "SimpleXML") !== false) {
+                        $object = $value;
+                        if(isset($value->attributes()['reference'])){
+                            $path   = (string) $value->attributes()['reference'];
+                            $result = $value->xpath($path);
+                            if(count($result)>0){
+                                $object = $result[0];
+                            }
+                        }
+                        $array[$key] = $this->SimpleXML2ArrayWithCDATASupport($object);
+                    }
+                } else {
+                    $array[$key] = $this->SimpleXML2ArrayWithCDATASupport($value);
+                }
             }
         }
-        return $a;
+        return $array;
     }
+
 }
