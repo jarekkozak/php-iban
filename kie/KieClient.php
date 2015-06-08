@@ -40,6 +40,7 @@ class KieClient extends Object
                 ->expectsType('xml')
                 ->send();
         } catch (Exception $exc) {
+            \Yii::error($exc->getMessage()."\n".$exc->getTraceAsString());
             return false;
         }
 
@@ -61,6 +62,7 @@ class KieClient extends Object
                 ->expectsType('xml')
                 ->send();
         } catch (Exception $ex) {
+            \Yii::error($exc->getMessage()."\n".$exc->getTraceAsString());
             return false;
         }
         if ($this->isOk()) {
@@ -81,6 +83,7 @@ class KieClient extends Object
                 ->expectsType('xml')
                 ->send();
         } catch (Exception $ex) {
+            \Yii::error($exc->getMessage()."\n".$exc->getTraceAsString());
             return false;
         }
         if ($this->isOk()) {
@@ -101,6 +104,7 @@ class KieClient extends Object
             ->expectsType('xml')
             ->send();
         } catch (Exception $ex) {
+            \Yii::error($exc->getMessage()."\n".$exc->getTraceAsString());
             return false;
         }
         if ($this->isOk()) {
@@ -151,7 +155,9 @@ class KieClient extends Object
 
     public function getKieResponse()
     {
+        \Yii::trace("REST Response:".$this->response);
         if ($this->response!=null && $this->response->body!=null) {
+            \Yii::trace("REST Response body:".$this->response->body);
             return new KieResponse(['body' => $this->response->body]);
         }
         return FALSE;
