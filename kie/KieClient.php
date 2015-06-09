@@ -61,7 +61,7 @@ class KieClient extends Object
                 ->authenticateWith($this->username, $this->password)
                 ->expectsType('xml')
                 ->send();
-        } catch (Exception $ex) {
+        } catch (Exception $exc) {
             \Yii::error($exc->getMessage()."\n".$exc->getTraceAsString());
             return false;
         }
