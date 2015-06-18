@@ -171,15 +171,100 @@ class KieProject extends Object
      * @return type
      */
     public function isStarted(){
-        if(!isset($this->info['kie-container']['@attributes'])){
-            return false;
+        
+        if(($status = $this->getServerStatus())!==FALSE || $status=='STARTED'){
+            return TRUE;
         }
-        $status = $this->info['kie-container']['@attributes'];
-        if(!isset($status['container-id']) || !isset($status['status'])){
-            return false;
-        }
-        return (bool)($status['container-id'] == $this->container_id & $status['status'] == 'STARTED');
+        return FALSE;
+        
+//        if(!isset($this->info['kie-container']['@attributes'])){
+//            return false;
+//        }
+//        $status = $this->info['kie-container']['@attributes'];
+//        if(!isset($status['container-id']) || !isset($status['status'])){
+//            return false;
+//        }
+//        return (bool)($status['container-id'] == $this->container_id & $status['status'] == 'STARTED');
     }
 
+
+    /**
+     * Return table with server status 
+     * 
+     * @return boolean|[] false if there is no status
+     */
+    public function getServerInfo(){
+        if(!isset($this->info['kie-container'])){
+            return false;
+        }
+        return $this->info['kie-container'];
+    }
+
+    /**
+     * Gets container id running on the server
+     * @return boolean
+     */
+    public function getServerContainerId(){
+        if(($info=$this->getServerInfo())==FALSE || !isset($info['@attributes']['container-id'])){
+            return FALSE;
+        }
+        return $info['@attributes']['container-id']; 
+    }
+    
+    /**
+     * Gets server status
+     * @return boolean
+     */
+    public function getServerStatus(){
+        if(($info=$this->getServerInfo())==FALSE || !isset($info['@attributes']['status'])){
+            return FALSE;
+        }
+        return $info['@attributes']['status']; 
+    }
+    
+    /**
+     * Gets version from the server
+     * 
+     * @return boolean
+     */
+    public function getServerVersion(){
+        if(($info=$this->getServerInfo())==FALSE || !isset($info['resolved-release-id']['version'])){
+            return FALSE;
+        }
+        return $info['resolved-release-id']['version']; 
+        
+    }
+    
+    /**
+     * Check is server version is the same 
+     * @return boolean
+     */
+    public function isVersionOk(){
+        if(!$this->isStarted()){
+            return false; //Not started 
+        }
+        if($this->version == 'LATEST') {
+            return true;
+        }
+        return (bool)($this->version == $this->getServerVersion());
+        
+    }
+    
+    /**
+     * Check is server version is newest
+     * @return boolean
+     */
+    public function isNewest(){
+        if(!$this->isStarted()){
+            return false; //Not started 
+        }
+        if($this->version == 'LATEST') {
+            return true;
+        }
+        return (bool)($this->version <= $this->getServerVersion());
+        
+    }
+    
+    
 
 }

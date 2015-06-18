@@ -105,6 +105,35 @@ XML;
         }
 
     }
+    
+    /**
+     * @covers jarekkozak\kie\KieProject::scanProject
+     */
+    public function testScanProject2()
+    {
+        $project = new KieProject([
+            'container_id' => 'heartbeat',
+            'group_id' => 'trimetis',
+            'artifact_id' => 'heartbeat',
+            'version' => '1.0',
+            'client'=> $this->getClient()
+        ]);
+        // Lest start project 
+        $ret = $project->scanProject();
+        
+        
+        $this->assertTrue($project->isStarted());
+        $this->assertEquals('heartbeat',$project->getServerContainerId());
+        $this->assertEquals('1.0',$project->getServerVersion());
+        $this->assertTrue($project->isVersionOk());
+        $project->setVersion('0.9');
+        $this->assertFalse($project->isVersionOk());
+        $this->assertTrue($project->isNewest());
+
+    }
+    
+    
+    
  /**
      * Creates KIE client
      * @return \jarekkozak\kie\KieClient
