@@ -111,6 +111,7 @@ XML;
      */
     public function testScanProject2()
     {
+        
         $project = new KieProject([
             'container_id' => 'heartbeat',
             'group_id' => 'trimetis',
@@ -118,9 +119,9 @@ XML;
             'version' => '1.0',
             'client'=> $this->getClient()
         ]);
+        
         // Lest start project 
         $ret = $project->scanProject();
-        
         
         $this->assertTrue($project->isStarted());
         $this->assertEquals('heartbeat',$project->getServerContainerId());

@@ -28,7 +28,7 @@ class KieContainer extends \yii\base\Object
     protected $msg;
     protected $info;
 
-    /* @var $kieProject KieProject */
+    /** @var KieProject */
     protected $kieProject;
 
     function getContainers_context()
@@ -36,6 +36,10 @@ class KieContainer extends \yii\base\Object
         return $this->containers_context;
     }
 
+    /**
+     * 
+     * @return KieProject
+     */
     function getKieProject()
     {
         return $this->kieProject;
