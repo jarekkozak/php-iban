@@ -35,13 +35,14 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindTableName()
     {
+        // 20.03.2015 is Friday 
         $this->object = new CurrencyExchangeNBP([
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
-
         self::assertEquals('a055z150320', $this->object->findTableName('a'));
-
+        
+        // 21.03.2015 is Saturday
         $this->object = new CurrencyExchangeNBP([
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-21')
@@ -54,12 +55,16 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetExRatioTableList()
     {
+        
+        $moment = new \Moment\Moment();
+        $year = $moment->format('y');
+        
         $alist = $this->object->getExRatioTableList('a');
         $list  = $this->object->getExRatioTableList();
         self::assertTrue(count($alist) > 100);
         self::assertTrue(count($list) > count($alist));
-        self::assertEquals('a001z020102', $alist[0]);
-        self::assertEquals('c001z020102', $list[0]);
+        self::assertContains('a001z'.$year.'01', $alist[0]);
+        self::assertContains('c001z'.$year.'01', $list[0]);
     }
 
     /**

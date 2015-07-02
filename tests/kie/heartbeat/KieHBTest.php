@@ -57,7 +57,7 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
         $hb = new KieHB([
             'client' => $this->client,
         ]);
-        $this->assertTrue($hb->listenHeart());
+        self::assertTrue($hb->listenHeart());
     }
 
     /**
@@ -68,12 +68,12 @@ class KieHBTest extends \PHPUnit_Framework_TestCase
         $hb = new KieHB([
             'client' => $this->client,
         ]);
-        $res = $hb->getHeartBeat();
-        $this->assertCount(2,$res);
-        $this->assertTrue(isset($res['response']));
-        $this->assertTrue(isset($res['request']));
+        self::assertNotNull($res = $hb->getHeartBeat());
+        self::assertCount(2,$res);
+        self::assertTrue(isset($res['response']));
+        self::assertTrue(isset($res['request']));
         $request = $res['request'];
-        $this->assertInstanceOf('\Moment\Moment',$request->time);
+        self::assertInstanceOf('\Moment\Moment',$request->time);
     }
 
 }

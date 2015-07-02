@@ -43,7 +43,7 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
         ]]);
 
         $a = \Yii::$container->get('jarekkozak\sys\TestDPM');
-        $this->assertInstanceOf('jarekkozak\sys\PropertiesFile', $a->prop);
+        self::assertInstanceOf('jarekkozak\sys\PropertiesFile', $a->prop);
     }
 
     /**
@@ -57,10 +57,10 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
                 'class' => 'jarekkozak\sys\Properties',
         ]]);
         $container = \Yii::$container;
-        $this->assertTrue(\Yii::$container->has('jarekkozak\sys\IProperties'));
+        self::assertTrue(\Yii::$container->has('jarekkozak\sys\IProperties'));
 
         $a = \Yii::$container->get('jarekkozak\sys\TestDPM');
-        $this->assertInstanceOf('jarekkozak\sys\Properties', $a->prop);
+        self::assertInstanceOf('jarekkozak\sys\Properties', $a->prop);
     }
 
     /**
@@ -74,8 +74,8 @@ class DependencyManagerTest extends \PHPUnit_Framework_TestCase
                 return new \jarekkozak\sys\Properties(['values' => ['prop1' => 'test1']]);
             }]);
             $a = \Yii::$container->get('jarekkozak\sys\TestDPM');
-            $this->assertInstanceOf('jarekkozak\sys\Properties', $a->prop);
-            $this->assertEquals('test1', $a->prop->getProperty('prop1'));
+            self::assertInstanceOf('jarekkozak\sys\Properties', $a->prop);
+            self::assertEquals('test1', $a->prop->getProperty('prop1'));
     }
 }
 

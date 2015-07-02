@@ -101,8 +101,8 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
             'container' => 'heartbeat',
             'kieProject' => $this->getProject()
         ]);
-        $this->assertFalse($container->getContainerInfo());
-        $this->assertTrue($container->startContainer());
+        self::assertFalse($container->getContainerInfo());
+        self::assertTrue($container->startContainer());
 
         $exp = [
             '@attributes' => [
@@ -125,7 +125,7 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ];
-        $this->assertEquals($exp,$container->getContainerInfo());
+        self::assertEquals($exp,$container->getContainerInfo());
     }
 
     /**
@@ -171,8 +171,8 @@ class KieContainerTest extends \PHPUnit_Framework_TestCase
         ]));
 ///
         $res     = $container->execute($batch);
-        $this->assertTrue($res);
+        self::assertTrue($res);
         $results = $container->getResults();
-        $this->assertCount(2, $results);
+        self::assertCount(2, $results);
     }
 }

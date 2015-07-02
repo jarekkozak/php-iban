@@ -38,9 +38,9 @@ class KieResponseTest extends \PHPUnit_Framework_TestCase
     {
         $body = simplexml_load_string('<response type="SUCCESS" msg="Kie Server info"><kie-server-info><version>6.2.0.Final</version></kie-server-info></response>');
         $response  = new KieResponse(['body'=>$body]);
-        $this->assertEquals('SUCCESS', $response->getType());
-        $this->assertEquals('Kie Server info', $response->getMsg());
-        $this->assertTrue($response->isSuccess());
+        self::assertEquals('SUCCESS', $response->getType());
+        self::assertEquals('Kie Server info', $response->getMsg());
+        self::assertTrue($response->isSuccess());
     }
 
     /**
@@ -50,9 +50,9 @@ class KieResponseTest extends \PHPUnit_Framework_TestCase
     {
         $body = simplexml_load_string('<response msg="Kie Server info"><kie-server-info><version>6.2.0.Final</version></kie-server-info></response>');
         $response  = new KieResponse(['body'=>$body]);
-        $this->assertFalse($response->isSuccess());
-        $this->assertNull($response->getType());
-        $this->assertNull($response->getMsg());
+        self::assertFalse($response->isSuccess());
+        self::assertNull($response->getType());
+        self::assertNull($response->getMsg());
     }
 
     /**
@@ -61,9 +61,9 @@ class KieResponseTest extends \PHPUnit_Framework_TestCase
     public function testInitFail2()
     {
         $response  = new KieResponse();
-        $this->assertFalse($response->isSuccess());
-        $this->assertNull($response->getType());
-        $this->assertNull($response->getMsg());
+        self::assertFalse($response->isSuccess());
+        self::assertNull($response->getType());
+        self::assertNull($response->getMsg());
     }
 
 
@@ -72,7 +72,7 @@ class KieResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsSuccess()
     {
-        $this->assertTrue($this->object->isSuccess());
+        self::assertTrue($this->object->isSuccess());
     }
 
     /**
@@ -80,7 +80,7 @@ class KieResponseTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMsg()
     {
-        $this->assertEquals('Kie Server info', $this->object->getMsg());
+        self::assertEquals('Kie Server info', $this->object->getMsg());
     }
 
     public function testContainerData(){
@@ -113,7 +113,7 @@ XML;
             'version'=>'4.9'
         ];
 
-        $this->assertEquals($release,$data['kie-container']['release-id']);
+        self::assertEquals($release,$data['kie-container']['release-id']);
 
 
     }

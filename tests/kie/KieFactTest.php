@@ -67,9 +67,9 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         ]);
 
         $xml = $reqFact->toXml();
-        $this->assertEquals('<org.jarekkozak.Request><message>Test message</message><startAA>2015-01-01 12:34:00.000000 UTC</startAA><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request>',
+        self::assertEquals('<org.jarekkozak.Request><message>Test message</message><startAA>2015-01-01 12:34:00.000000 UTC</startAA><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request>',
             $xml);
-        $this->assertEquals('req1', $reqFact->getIdentifier());
+        self::assertEquals('req1', $reqFact->getIdentifier());
     }
 
     /**
@@ -103,9 +103,9 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         ]);
 
         $xml = $reqFact->toXml();
-        $this->assertEquals('<org.jarekkozak.Request><message>Test message</message><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request>',
+        self::assertEquals('<org.jarekkozak.Request><message>Test message</message><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request>',
             $xml);
-        $this->assertEquals('req1', $reqFact->getIdentifier());
+        self::assertEquals('req1', $reqFact->getIdentifier());
     }
 
     /**
@@ -131,10 +131,10 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         ]);
 
         $xml = $reqFact->toXml();
-        $this->assertEquals('<org.jarekkozak.Request><message>Test message</message><start>2015-01-01 12:34:00.000000 UTC</start><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request>',
+        self::assertEquals('<org.jarekkozak.Request><message>Test message</message><start>2015-01-01 12:34:00.000000 UTC</start><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request>',
             $xml);
 
-        $this->assertEquals(13, strlen($reqFact->getIdentifier()));
+        self::assertEquals(13, strlen($reqFact->getIdentifier()));
     }
 
     /**
@@ -169,9 +169,9 @@ class KieFactTest extends PHPUnit_Framework_TestCase
 
         /* @var KieHBRequest */
         $object = $reqFact->getObject();
-        $this->assertEquals('HeartBeat', $object->message);
-        $this->assertEquals('2015-05-06T09:56:37+0000', $object->start->format());
-        $this->assertEquals('2015-05-06T09:56:37+0000', $object->time->format());
+        self::assertEquals('HeartBeat', $object->message);
+        self::assertEquals('2015-05-06T09:56:37+0000', $object->start->format());
+        self::assertEquals('2015-05-06T09:56:37+0000', $object->time->format());
     }
 
     /**
@@ -206,9 +206,9 @@ class KieFactTest extends PHPUnit_Framework_TestCase
 
         /* @var KieHBRequest */
         $object = $reqFact->getObject();
-        $this->assertEquals('HeartBeat', $object->message);
-        $this->assertEquals('1970-01-01T12:34:00+0000', $object->start->format());
-        $this->assertEquals('2015-05-06T09:56:37+0000', $object->time->format());
+        self::assertEquals('HeartBeat', $object->message);
+        self::assertEquals('1970-01-01T12:34:00+0000', $object->start->format());
+        self::assertEquals('2015-05-06T09:56:37+0000', $object->time->format());
     }
 
     /**
@@ -235,12 +235,12 @@ class KieFactTest extends PHPUnit_Framework_TestCase
 
         $query = $reqFact->parseQuery($this->preparedata()['result']);
         $r1    = $query[0];
-        $this->assertEquals('HeartBeat', $r1->output);
-        $this->assertEquals('2015-05-06T09:56:37+0000',
+        self::assertEquals('HeartBeat', $r1->output);
+        self::assertEquals('2015-05-06T09:56:37+0000',
             $r1->responseDate->format());
         $r1    = $query[1];
-        $this->assertEquals('I\'m alive', $r1->output);
-        $this->assertEquals('2015-05-06T09:56:37+0000',
+        self::assertEquals('I\'m alive', $r1->output);
+        self::assertEquals('2015-05-06T09:56:37+0000',
             $r1->responseDate->format());
     }
     /**
@@ -266,10 +266,10 @@ class KieFactTest extends PHPUnit_Framework_TestCase
         ]);
 
         $query = $reqFact->parseQuery($this->preparedata1()['result']);
-        $this->assertCount(1,$query);
+        self::assertCount(1,$query);
         $r1    = $query[0];
-        $this->assertEquals('HeartBeat', $r1->output);
-        $this->assertEquals('2015-05-06T09:56:37+0000',
+        self::assertEquals('HeartBeat', $r1->output);
+        self::assertEquals('2015-05-06T09:56:37+0000',
             $r1->responseDate->format());
     }
 

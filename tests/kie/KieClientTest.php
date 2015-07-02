@@ -66,8 +66,8 @@ class KieClientTest extends \PHPUnit_Framework_TestCase
           'version' => $version!=null?$version:'6.2.0.Final'
         ];
         $result = $client->getServerInfo();
-        $this->assertEquals($exp, $result);
-        $this->assertTrue($client->isOk());
+        self::assertEquals($exp, $result);
+        self::assertTrue($client->isOk());
 
     }
 }

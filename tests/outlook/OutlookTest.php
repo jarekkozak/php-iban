@@ -55,7 +55,7 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
             'properties' => $this->property
             ]
         );
-        $this->assertTrue($auth->authenticate());
+        self::assertTrue($auth->authenticate());
     }
 
     /**
@@ -77,7 +77,7 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
 
         /* @var $auth Outlook */
         $auth = \Yii::$container->get('jarekkozak\outlook\Outlook');
-        $this->assertTrue($auth->authenticate());
+        self::assertTrue($auth->authenticate());
     }
 
     /**
@@ -97,7 +97,7 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
         ]);
         /* @var $auth Outlook */
         $auth = \Yii::$app->outlookAuth;
-        $this->assertTrue($auth->authenticate());
+        self::assertTrue($auth->authenticate());
     }
 
     /**
@@ -113,6 +113,6 @@ class OutlookTest extends \PHPUnit_Framework_TestCase
                 'properties' => $this->property
             ]
         );
-        $this->assertFalse($auth->authenticate());
+        self::assertFalse($auth->authenticate());
     }
 }

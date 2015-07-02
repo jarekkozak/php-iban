@@ -35,9 +35,9 @@ class FlashHelperTest extends \PHPUnit_Framework_TestCase
     public function testSetFlashSuccess()
     {
         $message = 'Success Message';
-        $this->assertFalse(FlashHelper::hasFlashSuccess());
+        self::assertFalse(FlashHelper::hasFlashSuccess());
         FlashHelper::setFlashSuccess($message);
-        $this->assertTrue(FlashHelper::hasFlashSuccess());
+        self::assertTrue(FlashHelper::hasFlashSuccess());
     }
 
 
@@ -47,9 +47,9 @@ class FlashHelperTest extends \PHPUnit_Framework_TestCase
     public function testSetFlashInfo()
     {
         $message = 'Success Message';
-        $this->assertFalse(FlashHelper::hasFlashInfo());
+        self::assertFalse(FlashHelper::hasFlashInfo());
         FlashHelper::setFlashInfo($message);
-        $this->assertTrue(FlashHelper::hasFlashInfo());
+        self::assertTrue(FlashHelper::hasFlashInfo());
     }
 
 
@@ -59,9 +59,9 @@ class FlashHelperTest extends \PHPUnit_Framework_TestCase
     public function testSetFlashError()
     {
         $message = 'Success Message';
-        $this->assertFalse(FlashHelper::hasFlashError());
+        self::assertFalse(FlashHelper::hasFlashError());
         FlashHelper::setFlashError($message);
-        $this->assertTrue(FlashHelper::hasFlashError());
+        self::assertTrue(FlashHelper::hasFlashError());
     }
 
     /**
@@ -70,9 +70,9 @@ class FlashHelperTest extends \PHPUnit_Framework_TestCase
     public function testSetFlashWarning()
     {
         $message = 'Success Message';
-        $this->assertFalse(FlashHelper::hasFlashWarning());
+        self::assertFalse(FlashHelper::hasFlashWarning());
         FlashHelper::setFlashWarning($message);
-        $this->assertTrue(FlashHelper::hasFlashWarning());
+        self::assertTrue(FlashHelper::hasFlashWarning());
     }
 
     
@@ -82,9 +82,9 @@ class FlashHelperTest extends \PHPUnit_Framework_TestCase
     public function testSetFlashDanger()
     {
         $message = 'Success Message';
-        $this->assertFalse(FlashHelper::hasFlashDanger());
+        self::assertFalse(FlashHelper::hasFlashDanger());
         FlashHelper::setFlashDanger($message);
-        $this->assertTrue(FlashHelper::hasFlashDanger());
+        self::assertTrue(FlashHelper::hasFlashDanger());
     }
 
     /**
@@ -94,9 +94,9 @@ class FlashHelperTest extends \PHPUnit_Framework_TestCase
     public function testSetFlashPrimary()
     {
         $message = 'Success Message';
-        $this->assertFalse(FlashHelper::hasFlashPrimary());
+        self::assertFalse(FlashHelper::hasFlashPrimary());
         FlashHelper::setFlashPrimary($message);
-        $this->assertTrue(FlashHelper::hasFlashPrimary());
+        self::assertTrue(FlashHelper::hasFlashPrimary());
     }
 
 }

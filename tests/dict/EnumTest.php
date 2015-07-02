@@ -38,8 +38,8 @@ class EnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testValues()
     {
-        $this->assertCount(3,  EnumMock::values());
-        $this->assertCount(4,  EnumMock1::values());
+        self::assertCount(3,  EnumMock::values());
+        self::assertCount(4,  EnumMock1::values());
     }
 
     /**
@@ -47,15 +47,15 @@ class EnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsValid()
     {
-        $this->assertTrue(EnumMock::isValid(1));
-        $this->assertTrue(EnumMock::isValid(2));
-        $this->assertFalse(EnumMock::isValid('1'));
-        $this->assertFalse(EnumMock::isValid(3));
+        self::assertTrue(EnumMock::isValid(1));
+        self::assertTrue(EnumMock::isValid(2));
+        self::assertFalse(EnumMock::isValid('1'));
+        self::assertFalse(EnumMock::isValid(3));
 
-        $this->assertTrue(EnumMock1::isValid('1'));
-        $this->assertTrue(EnumMock1::isValid('2'));
-        $this->assertFalse(EnumMock1::isValid(1));
-        $this->assertTrue(EnumMock1::isValid('3'));
+        self::assertTrue(EnumMock1::isValid('1'));
+        self::assertTrue(EnumMock1::isValid('2'));
+        self::assertFalse(EnumMock1::isValid(1));
+        self::assertTrue(EnumMock1::isValid('3'));
     }
 
     /**
@@ -63,10 +63,10 @@ class EnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testName()
     {
-        $this->assertEquals('A',EnumMock::name(1));
-        $this->assertEquals(FALSE,EnumMock::name('1'));
-        $this->assertEquals('C1',EnumMock1::name('3'));
-        $this->assertEquals(FALSE,EnumMock1::name(3));
+        self::assertEquals('A',EnumMock::name(1));
+        self::assertEquals(FALSE,EnumMock::name('1'));
+        self::assertEquals('C1',EnumMock1::name('3'));
+        self::assertEquals(FALSE,EnumMock1::name(3));
     }
 
     /**
@@ -74,16 +74,16 @@ class EnumTest extends \PHPUnit_Framework_TestCase
      */
     public function testValue()
     {
-        $this->assertEquals(1,EnumMock::value('A'));
-        $this->assertEquals(NULL,EnumMock::value('A1'));
+        self::assertEquals(1,EnumMock::value('A'));
+        self::assertEquals(NULL,EnumMock::value('A1'));
     }
 
     public function testEnumName(){
-        $this->assertEquals('jarekkozak\tests\dict\EnumMock', EnumMock::enumName());
+        self::assertEquals('jarekkozak\tests\dict\EnumMock', EnumMock::enumName());
     }
 
     public function testGetInstance(){
-        $this->assertInstanceOf('jarekkozak\tests\dict\EnumMock', EnumMock::getInstance());
-        $this->assertInstanceOf('jarekkozak\tests\dict\EnumMock1', EnumMock1::getInstance());
+        self::assertInstanceOf('jarekkozak\tests\dict\EnumMock', EnumMock::getInstance());
+        self::assertInstanceOf('jarekkozak\tests\dict\EnumMock1', EnumMock1::getInstance());
     }
 }

@@ -62,7 +62,7 @@ class KieBatchTest extends \PHPUnit_Framework_TestCase
     public function testToXml()
     {
         $batch = new KieBatch();
-        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n"
+        self::assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n"
         .'<batch-execution><fire-all-rules/></batch-execution>'."\n",$batch->toXml());
     }
 
@@ -72,7 +72,7 @@ class KieBatchTest extends \PHPUnit_Framework_TestCase
     public function testToXml1()
     {
         $batch = new KieBatch(['lookup'=>'ksession']);
-        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n"
+        self::assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n"
         .'<batch-execution lookup="ksession"><fire-all-rules/></batch-execution>'."\n",$batch->toXml());
     }
 
@@ -125,7 +125,7 @@ class KieBatchTest extends \PHPUnit_Framework_TestCase
             'identifier'=>'identyfikator'
         ]));
 
-        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n"
+        self::assertEquals('<?xml version="1.0" encoding="UTF-8"?>'."\n"
         .'<batch-execution lookup="ksession"><insert out-identifier="req1"><org.jarekkozak.Request><message>Test message</message><start>2015-01-01 12:34:00.000000 UTC</start><time>2015-01-02 12:34:00.000000 UTC</time></org.jarekkozak.Request></insert><insert out-identifier="req2"><org.jarekkozak.Request><message>Test message2</message><start>2015-02-01 12:34:00.000000 UTC</start><time>2015-02-02 12:34:00.000000 UTC</time></org.jarekkozak.Request></insert><fire-all-rules/><query out-identifier="identyfikator" name="response"/></batch-execution>'."\n",$batch->toXml());
     }
 }

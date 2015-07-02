@@ -39,8 +39,8 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
     public function testValue()
     {
         $a = new Dict1(Dict1::VALUE1);
-        $this->assertTrue(1 === $a->value());
-        $this->assertTrue('1' == $a->value());
+        self::assertTrue(1 === $a->value());
+        self::assertTrue('1' == $a->value());
     }
 
     /**
@@ -50,19 +50,19 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
     {
         $a = new Dict1(Dict1::VALUE1);
         $b = new Dict1(Dict1::VALUE2);
-        $this->assertTrue($a != $b);
+        self::assertTrue($a != $b);
 
 
         $a = new Dict1(Dict1::VALUE1);
         $b = new Dict1(Dict1::VALUE1);
-        $this->assertTrue($a->equals($b));
+        self::assertTrue($a->equals($b));
 
-        $this->assertTrue($a == $b);
-        $this->assertTrue(1 == $b->value());
+        self::assertTrue($a == $b);
+        self::assertTrue(1 == $b->value());
 
         $a = new Dict1(Dict1::VALUE1);
         $b = new Dict1(Dict1::VALUE1);
-        $this->assertTrue($a->value() == $b->value());
+        self::assertTrue($a->value() == $b->value());
     }
 
     /**
@@ -71,11 +71,11 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
     public function testIsValid()
     {
         $dict = new Dict1();
-        $this->assertTrue($dict->isValid(1));
-        $this->assertTrue($dict->isValid(2));
-        $this->assertFalse($dict->isValid(3));
-        $this->assertFalse($dict->isValid('1'));
-        $this->assertFalse($dict->isValid('2'));
+        self::assertTrue($dict->isValid(1));
+        self::assertTrue($dict->isValid(2));
+        self::assertFalse($dict->isValid(3));
+        self::assertFalse($dict->isValid('1'));
+        self::assertFalse($dict->isValid('2'));
     }
 
     /**
@@ -83,10 +83,10 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInstanceFromValue()
     {
-        $this->assertInstanceOf('jarekkozak\tests\dict\Dict1',
+        self::assertInstanceOf('jarekkozak\tests\dict\Dict1',
             $ret = Dict1::getInstanceFromValue(1));
-        $this->assertTrue($ret->equals(new Dict1(Dict1::VALUE1)));
-        $this->assertTrue(1 === $ret->value());
+        self::assertTrue($ret->equals(new Dict1(Dict1::VALUE1)));
+        self::assertTrue(1 === $ret->value());
     }
 
     /**
@@ -98,7 +98,7 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
             new Dict1(Dict1::VALUE1),
             new Dict1(Dict1::VALUE2),
         ];
-        $this->assertEquals($arr, Dict1::getInstance()->values());
+        self::assertEquals($arr, Dict1::getInstance()->values());
     }
 
     /**
@@ -106,7 +106,7 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInstance()
     {
-        $this->assertEquals(new Dict1(Dict1::VALUE1), Dict1::getInstance(Dict1::VALUE1));
+        self::assertEquals(new Dict1(Dict1::VALUE1), Dict1::getInstance(Dict1::VALUE1));
     }
 
     /**
@@ -114,7 +114,7 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
      */
     public function testDictionary()
     {
-        $this->assertEquals('jarekkozak\tests\dict\Dict1', Dict1::getInstance()->dictionary());
+        self::assertEquals('jarekkozak\tests\dict\Dict1', Dict1::getInstance()->dictionary());
     }
 
     /**
@@ -123,7 +123,7 @@ class DictionaryTest extends \PHPUnit_Framework_TestCase
     public function testToString()
     {
         $a = new Dict1(Dict1::VALUE1);
-        $this->assertEquals('key:com.common.value1  value:1  type:integer', ''.$a);
+        self::assertEquals('key:com.common.value1  value:1  type:integer', ''.$a);
     }
 
 }

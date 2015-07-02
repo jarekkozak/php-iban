@@ -38,10 +38,10 @@ class PropertiesFileTest extends \PHPUnit_Framework_TestCase
             'filename' => $filename
         ]);
 
-        $this->assertEquals('testProperty', $prop->getProperty('property1'));
-        $this->assertEquals('testProperty2', $prop->getProperty('property2'));
-        $this->assertNull($prop->getProperty('property3'));
-        $this->assertEquals('testProperty3', $prop->getProperty('property3','testProperty3'));
+        self::assertEquals('testProperty', $prop->getProperty('property1'));
+        self::assertEquals('testProperty2', $prop->getProperty('property2'));
+        self::assertNull($prop->getProperty('property3'));
+        self::assertEquals('testProperty3', $prop->getProperty('property3','testProperty3'));
 
     }
 
@@ -53,25 +53,25 @@ class PropertiesFileTest extends \PHPUnit_Framework_TestCase
         $prop = new PropertiesFile([
             'filename' => '$HOME/test.txt'
         ]);
-        $this->assertEquals(getenv('HOME').'/test.txt', $prop->filename);
+        self::assertEquals(getenv('HOME').'/test.txt', $prop->filename);
 
         $prop = new PropertiesFile([
             'envars'=>[],
             'filename' => '$HOME/test.txt'
         ]);
-        $this->assertEquals('$HOME/test.txt', $prop->filename);
+        self::assertEquals('$HOME/test.txt', $prop->filename);
 
         $prop = new PropertiesFile([
             'envars'=>['NON_EXIST_VARIABLE_YI#(^$)(@&)$'],
             'filename' => '$HOME/test.txt'
         ]);
-        $this->assertEquals('$HOME/test.txt', $prop->filename);
+        self::assertEquals('$HOME/test.txt', $prop->filename);
 
         $prop = new PropertiesFile([
             'envars'=>['NON_EXIST_VARIABLE_YI#(^$)(@&)$'],
             'filename' => '$NON_EXIST_VARIABLE_YI#(^$)(@&)$/test.txt'
         ]);
-        $this->assertEquals('/test.txt', $prop->filename);
+        self::assertEquals('/test.txt', $prop->filename);
 
     }
 }

@@ -39,13 +39,13 @@ class KieMomentConverterTest extends \PHPUnit_Framework_TestCase
         $convert = new KieMomentConverter();
         $moment = $convert->toObject('2015-01-01 12:12:34.0 UTC');
         $exp = new \Moment\Moment('2015-01-01T12:12:34Z');
-        $this->assertTrue($exp->isSame($moment));
+        self::assertTrue($exp->isSame($moment));
         
         // @todo check locales
 //        $convert = new KieMomentConverter(['format'=>'g:i:sa \o\n l jS F Y T']);
 //        $moment = $convert->toObject('12:12:34pm on Thursday 1rd February 2015 UTC');
 //        $exp = new \Moment\Moment('2015-01-01T12:12:34Z');
-//        $this->assertTrue($exp->isSame($moment));
+//        self::assertTrue($exp->isSame($moment));
 
 
 
@@ -70,11 +70,11 @@ class KieMomentConverterTest extends \PHPUnit_Framework_TestCase
     {
         $moment = new \Moment\Moment('2015-01-01T12:12:34Z');
         $convert = new KieMomentConverter();
-        $this->assertEquals('2015-01-01 12:12:34.000000 UTC',$convert->toString($moment));
+        self::assertEquals('2015-01-01 12:12:34.000000 UTC',$convert->toString($moment));
         // @todo check locales
 //        $moment = new \Moment\Moment('2015-01-01T12:12:34Z');
 //        $convert = new KieMomentConverter(['format'=>'g:i:sa \o\n l jS F Y T']);
-//        $this->assertEquals('12:12:34pm on Thursday 1rd January 2015 UTC',$convert->toString($moment));
+//        self::assertEquals('12:12:34pm on Thursday 1rd January 2015 UTC',$convert->toString($moment));
 
     }
 

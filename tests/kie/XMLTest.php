@@ -69,9 +69,9 @@ class XMLTest extends \PHPUnit_Framework_TestCase
 </execution-results>';
 
         $expected = json_decode(json_encode((array)simplexml_load_string($a)),TRUE);
-        $this->assertTrue(isset($expected['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']));
-        $this->assertEquals("../../../result/query-results/row/trimetis.heartbeat.Response/responseDate",$expected['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']);
-        $this->assertEquals([
+        self::assertTrue(isset($expected['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']));
+        self::assertEquals("../../../result/query-results/row/trimetis.heartbeat.Response/responseDate",$expected['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']);
+        self::assertEquals([
             '@attributes'=>[
                 'reference'=>"../../../result/query-results/row/trimetis.heartbeat.Response/responseDate"
             ]
@@ -80,8 +80,8 @@ class XMLTest extends \PHPUnit_Framework_TestCase
         $parser = new XML();
         $result = $parser->parse($a);
 
-        $this->assertFalse(isset($result['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']));
-        $this->assertEquals("2015-06-01 20:07:01.111 UTC",$result['result'][1]['trimetis.heartbeat.Request']['time']);
+        self::assertFalse(isset($result['result'][1]['trimetis.heartbeat.Request']['time']['@attributes']['reference']));
+        self::assertEquals("2015-06-01 20:07:01.111 UTC",$result['result'][1]['trimetis.heartbeat.Request']['time']);
 
 
         //"../../../result/query-results/row/trimetis.heartbeat.Response/responseDate"

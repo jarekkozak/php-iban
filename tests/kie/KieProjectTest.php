@@ -57,7 +57,7 @@ class KieProjectTest extends \PHPUnit_Framework_TestCase
 <kie-container><container-id>heartbeat</container-id><status/><release-id><group-id>eu.trimetis</group-id><artifact-id>heartbeat</artifact-id><version>LATEST</version></release-id><resolved-release-id/></kie-container>
 
 XML;
-        $this->assertEquals($a, $project->toXml());
+        self::assertEquals($a, $project->toXml());
     }
 
     /**
@@ -75,10 +75,10 @@ XML;
 
         $ret = $project->scanProject();
         if(!$ret){
-            $this->assertTrue($project->isStarted());
+            self::assertTrue($project->isStarted());
         }else{
             $ret = $project->scanProject();
-            $this->assertTrue($project->isStarted());
+            self::assertTrue($project->isStarted());
         }
 
     }
@@ -98,10 +98,10 @@ XML;
 
         $ret = $project->scanProject();
         if(!$ret){
-            $this->assertTrue($project->isStarted());
+            self::assertTrue($project->isStarted());
         }else{
             $ret = $project->scanProject();
-            $this->assertTrue($project->isStarted());
+            self::assertTrue($project->isStarted());
         }
 
     }
@@ -123,13 +123,13 @@ XML;
         // Lest start project 
         $ret = $project->scanProject();
         
-        $this->assertTrue($project->isStarted());
-        $this->assertEquals('heartbeat',$project->getServerContainerId());
-        $this->assertEquals('1.0',$project->getServerVersion());
-        $this->assertTrue($project->isVersionOk());
+        self::assertTrue($project->isStarted());
+        self::assertEquals('heartbeat',$project->getServerContainerId());
+        self::assertEquals('1.0',$project->getServerVersion());
+        self::assertTrue($project->isVersionOk());
         $project->setVersion('0.9');
-        $this->assertFalse($project->isVersionOk());
-        $this->assertTrue($project->isNewest());
+        self::assertFalse($project->isVersionOk());
+        self::assertTrue($project->isNewest());
 
     }
     

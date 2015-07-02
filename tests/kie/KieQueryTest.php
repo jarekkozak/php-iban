@@ -100,6 +100,6 @@ class KieQueryTest extends \PHPUnit_Framework_TestCase
             'name'=>'response',
             'identifier'=>'identyfikator'
         ]);
-        $this->assertEquals('<query out-identifier="identyfikator" name="response"/>',$query->toXml());
+        self::assertEquals('<query out-identifier="identyfikator" name="response"/>',$query->toXml());
     }
 }

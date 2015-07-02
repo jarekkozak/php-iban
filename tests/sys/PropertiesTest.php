@@ -35,10 +35,10 @@ class PropertiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetValues()
     {
-        $this->assertEquals('AAA', $this->object->getProperty('prop1', 'AAA'));
-        $this->assertNull($this->object->getProperty('prop1'));
+        self::assertEquals('AAA', $this->object->getProperty('prop1', 'AAA'));
+        self::assertNull($this->object->getProperty('prop1'));
         $this->object->setValues(['prop1' => 'test1']);
-        $this->assertEquals('test1', $this->object->getProperty('prop1'));
+        self::assertEquals('test1', $this->object->getProperty('prop1'));
     }
 
     /**
@@ -51,7 +51,7 @@ class PropertiesTest extends \PHPUnit_Framework_TestCase
                 'prop1' => 'test1'
             ]
         ]);
-        $this->assertEquals('test1', $this->object->getProperty('prop1'));
-        $this->assertEquals('test1', $this->object->getProperty('prop1', 'AAA'));
+        self::assertEquals('test1', $this->object->getProperty('prop1'));
+        self::assertEquals('test1', $this->object->getProperty('prop1', 'AAA'));
     }
 }
