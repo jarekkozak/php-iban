@@ -40,13 +40,13 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
 
-        $this->assertEquals('a055z150320', $this->object->findTableName('a'));
+        self::assertEquals('a055z150320', $this->object->findTableName('a'));
 
         $this->object = new CurrencyExchangeNBP([
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-21')
         ]);
-        $this->assertEquals(FALSE, $this->object->findTableName('a'));
+        self::assertEquals(FALSE, $this->object->findTableName('a'));
     }
 
     /**
@@ -56,10 +56,10 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
     {
         $alist = $this->object->getExRatioTableList('a');
         $list  = $this->object->getExRatioTableList();
-        $this->assertTrue(count($alist) > 100);
-        $this->assertTrue(count($list) > count($alist));
-        $this->assertEquals('a001z020102', $alist[0]);
-        $this->assertEquals('c001z020102', $list[0]);
+        self::assertTrue(count($alist) > 100);
+        self::assertTrue(count($list) > count($alist));
+        self::assertEquals('a001z020102', $alist[0]);
+        self::assertEquals('c001z020102', $list[0]);
     }
 
     /**
@@ -73,9 +73,9 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
 
-        $this->assertEquals(412.55, $this->object->convert(100, 'EUR'));
-        $this->assertEquals(222.55, $this->object->convert(500, 'SEK'));
-        $this->assertEquals(1932.25, $this->object->convert(500, 'USD'));
+        self::assertEquals(412.55, $this->object->convert(100, 'EUR'));
+        self::assertEquals(222.55, $this->object->convert(500, 'SEK'));
+        self::assertEquals(1932.25, $this->object->convert(500, 'USD'));
     }
 
     /**
@@ -88,22 +88,22 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
-        $this->assertEquals('2015-03-20T00:00:00+0000',
+        self::assertEquals('2015-03-20T00:00:00+0000',
             $this->object->getExchangeRateDate()->format());
-        $this->assertEquals('2015-03-20T00:00:00+0000',
+        self::assertEquals('2015-03-20T00:00:00+0000',
             $this->object->getTableDate()->format());
 
         $this->object->setExchangeRateDate(new \Moment\Moment('2015-03-21'));
-        $this->assertEquals('2015-03-21T00:00:00+0000',
+        self::assertEquals('2015-03-21T00:00:00+0000',
             $this->object->getExchangeRateDate()->format());
 
-        $this->assertEquals('2015-03-20T00:00:00+0000',
+        self::assertEquals('2015-03-20T00:00:00+0000',
             $this->object->getTableDate()->format());
 
         $this->object->setExchangeRateDate(new \Moment\Moment('2015-03-19'));
-        $this->assertEquals('2015-03-19T00:00:00+0000',
+        self::assertEquals('2015-03-19T00:00:00+0000',
             $this->object->getExchangeRateDate()->format());
-        $this->assertEquals('2015-03-19T00:00:00+0000',
+        self::assertEquals('2015-03-19T00:00:00+0000',
             $this->object->getTableDate()->format());
     }
 
@@ -112,9 +112,9 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetSourceCurrency()
     {
-        $this->assertEquals('PLN', $this->object->getSourceCurrency());
+        self::assertEquals('PLN', $this->object->getSourceCurrency());
         $this->object->setSourceCurrency('EUR');
-        $this->assertEquals('PLN', $this->object->getSourceCurrency());
+        self::assertEquals('PLN', $this->object->getSourceCurrency());
     }
 
     /**
@@ -122,14 +122,14 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLinkList()
     {
-        $this->assertEquals('http://www.nbp.pl/kursy/xml/dir.txt',
+        self::assertEquals('http://www.nbp.pl/kursy/xml/dir.txt',
             $this->object->getLinkList());
 
         $this->object = new CurrencyExchangeNBP([
             'linkList' => 'test_a'
         ]);
         
-        $this->assertEquals('test_a',
+        self::assertEquals('test_a',
             $this->object->getLinkList());
 
     }
@@ -139,14 +139,14 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLinkDir()
     {
-        $this->assertEquals('http://www.nbp.pl/kursy/xml',
+        self::assertEquals('http://www.nbp.pl/kursy/xml',
             $this->object->getLinkDir());
 
         $this->object = new CurrencyExchangeNBP([
             'linkDir' => 'test_b'
         ]);
 
-        $this->assertEquals('test_b',
+        self::assertEquals('test_b',
             $this->object->getLinkDir());
     }
 
@@ -155,9 +155,9 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTableType()
     {
-        $this->assertEquals('a',$this->object->getTableType());
+        self::assertEquals('a',$this->object->getTableType());
         $this->object->setTableType('b');
-        $this->assertEquals('b',$this->object->getTableType());
+        self::assertEquals('b',$this->object->getTableType());
     }
 
     /**
@@ -169,7 +169,7 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
-        $this->assertEquals('2015-03-20T00:00:00+0000',
+        self::assertEquals('2015-03-20T00:00:00+0000',
             $this->object->getTableDate()->format());
     }
 
@@ -182,9 +182,9 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
-        $this->assertEquals('055/A/NBP/2015',
+        self::assertEquals('055/A/NBP/2015',
             $this->object->getTableNumber());
-        $this->assertEquals('a055z150320',$this->object->getTableName());
+        self::assertEquals('a055z150320',$this->object->getTableName());
     }
     /**
      * @covers jarekkozak\util\CurrencyExchangeNBP::getTableOrderNumber()
@@ -195,7 +195,7 @@ class CurrencyExchangeNBPTest extends \PHPUnit_Framework_TestCase
             'tableType' => 'a',
             'exchangeRateDate' => new \Moment\Moment('2015-03-20')
         ]);
-        $this->assertEquals(2015055,
+        self::assertEquals(2015055,
             $this->object->getTableOrderNumber());
     }
 
