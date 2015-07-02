@@ -27,19 +27,19 @@ class BankAccountNumberTest extends \PHPUnit_Framework_TestCase {
     }
     
     public function testVerify(){
-        $this->assertFalse($this->object->Verify('PL61109010140000071219812874E'));
+        self::assertFalse($this->object->Verify('PL61109010140000071219812874E'));
     }
     
     public function testVerify1(){
-        $this->assertTrue($this->object->Verify('PL61109010140000071219812874'));
+        self::assertTrue($this->object->Verify('PL61109010140000071219812874'));
     }
     
     public function testVerify11(){
-        $this->assertTrue($this->object->Verify('PL 611090 1014 0000 0712 1981 2874'));
+        self::assertTrue($this->object->Verify('PL 611090 1014 0000 0712 1981 2874'));
     }
 
     public function testVerify2(){
-        $this->assertFalse($this->object->Verify('61109010140000071219812874'));
+        self::assertFalse($this->object->Verify('61109010140000071219812874'));
     }
     
 }
