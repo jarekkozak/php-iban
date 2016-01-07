@@ -1,6 +1,4 @@
-<?php
-
-namespace jarekkozak\util;
+<?php namespace jarekkozak\util;
 
 use Moment\Moment;
 
@@ -15,8 +13,8 @@ use Moment\Moment;
  *
  * @property string $tableType  exchange table type
  * @property Moment $exchangeRateDate Description
- * @property string $linkList address to text file with list of exchange ratio tables
- * @property string $linkDir address to dir where tables are stored
+ * @property string $linkList address to text file with list of exchange ratio tables default: 'http://www.nbp.pl/kursy/xml'
+ * @property string $linkDir address to dir where tables are stored default: "http://www.nbp.pl/kursy/xml/dir{""|year}.txt";
  * @property string $sourceCurrency source currency default PLN
  *
  */
@@ -27,24 +25,20 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
     const SOURCE_CURRENCY = 'PLN';
 
     protected $exchangeRateDate;
-    protected $linkList       = 'http://www.nbp.pl/kursy/xml/dir.txt';
-    protected $linkDir        = 'http://www.nbp.pl/kursy/xml';
-    protected $tableType      = self::AVERAGE;
+    protected $linkList = null;
+    protected $linkDir = null;
+    protected $tableType = self::AVERAGE;
     protected $sourceCurrency = self::SOURCE_CURRENCY;
-
-    private $_cache        = NULL;
-
+    private $_cache = NULL;
     protected $table;
-    protected $tableDate   = NULL;
+    protected $tableDate = NULL;
     protected $tableNumber = NULL;
-    protected $tableName   = NULL;
+    protected $tableName = NULL;
 
     public function init()
     {
         parent::init();
-
         $this->sourceCurrency = self::SOURCE_CURRENCY;
-
         if ($this->exchangeRateDate == NULL) {
             $this->exchangeRateDate = new Moment();
         } elseif (is_string($this->exchangeRateDate)) {
@@ -52,7 +46,19 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         }
         $today = new Moment();
         if ($today->isBefore($this->exchangeRateDate)) {
-            throw new CurrencyExchangeRateException('You cannot get exchange rate for future. Today:'.$today->format().' Request date:'.$this->exchangeRateDate->format());
+            throw new CurrencyExchangeRateException('You cannot get exchange rate for future. Today:' . $today->format() . ' Request date:' . $this->exchangeRateDate->format());
+        }
+
+        if ($this->linkDir == null) {
+            $this->linkDir = 'http://www.nbp.pl/kursy/xml';
+        }
+
+        if ($this->linkList == null) {
+            $year = '';
+            if ($this->exchangeRateDate->getYear() != $today->getYear()) {
+                $year = $this->exchangeRateDate->getYear();
+            }
+            $this->linkList = "http://www.nbp.pl/kursy/xml/dir$year.txt";
         }
     }
 
@@ -84,9 +90,9 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
      */
     public function findTableName($type)
     {
-        $day     = $this->exchangeRateDate->format('ymd');
-        $pattern = "/".$type."[0-9]{3}[z]{1}".$day."/";
-        $list    = $this->getTableList();
+        $day = $this->exchangeRateDate->format('ymd');
+        $pattern = "/" . $type . "[0-9]{3}[z]{1}" . $day . "/";
+        $list = $this->getTableList();
         if (preg_match($pattern, $this->getTableList(), $ret) == 1) {
             return $ret[0];
         }
@@ -103,18 +109,18 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         if ($type == NULL) {
             $type = '[a-z]{1}'; //Default all tables
         }
-        if (preg_match_all("/".$type."[0-9]{3}[z]{1}[0-9]{6}/",
-                $this->getTableList(), $array) > 0) {
+        if (preg_match_all("/" . $type . "[0-9]{3}[z]{1}[0-9]{6}/", $this->getTableList(), $array) > 0) {
             return $array[0];
         };
         return FALSE;
     }
 
-    protected function findPrevTableName(array $names){
+    protected function findPrevTableName(array $names)
+    {
         $name = array_pop($names);
         $dateTime = \DateTime::createFromFormat('ymd', substr($name, 5));
         $date = new Moment($dateTime->format('Y-m-d'));
-        while ($date->isAfter($this->exchangeRateDate) && count($names)>0) {
+        while ($date->isAfter($this->exchangeRateDate) && count($names) > 0) {
             $name = array_pop($names);
             $dateTime = \DateTime::createFromFormat('ymd', substr($name, 5));
             $date = new Moment($dateTime->format('Y-m-d'));
@@ -132,27 +138,27 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         }
         if (($name = $this->findTableName($this->tableType)) == FALSE) {
             if (($names_table = $this->getExRatioTableList($this->tableType)) == FALSE) {
-                throw new CurrencyExchangeRateException('Exchange rate table type:'.$this->tableType.' not exists for date:'.$this->exchangeRateDate->format());
+                throw new CurrencyExchangeRateException('Exchange rate table type:' . $this->tableType . ' not exists for date:' . $this->exchangeRateDate->format());
             }
             //$name = array_pop($names_table);
             $name = $this->findPrevTableName($names_table);
         }
 
-        $tableExc = simplexml_load_file($this->linkDir.'/'.$name.'.xml');
-        $ratio    = [];
+        $tableExc = simplexml_load_file($this->linkDir . '/' . $name . '.xml');
+        $ratio = [];
         foreach ($tableExc->pozycja as $rateEx) {
-            $kod_waluty                  = $rateEx->kod_waluty;
-            $przelicznik                 = $rateEx->przelicznik;
-            $kurs_sredni                 = $rateEx->kurs_sredni;
+            $kod_waluty = $rateEx->kod_waluty;
+            $przelicznik = $rateEx->przelicznik;
+            $kurs_sredni = $rateEx->kurs_sredni;
             $ratio[(string) $kod_waluty] = [
-                'converter' => (int)((string) $przelicznik),
+                'converter' => (int) ((string) $przelicznik),
                 'price' => $this->parseValue((string) $kurs_sredni)
             ];
         }
-        $this->tableName   = $name;
-        $this->tableDate   = new Moment((string) $tableExc->data_publikacji);
+        $this->tableName = $name;
+        $this->tableDate = new Moment((string) $tableExc->data_publikacji);
         $this->tableNumber = (string) $tableExc->numer_tabeli;
-        $this->table       = $ratio;
+        $this->table = $ratio;
     }
 
     /**
@@ -163,17 +169,17 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
     public function convert($amount, $currency)
     {
         $this->downloadTable();
-        if(!isset($this->table[$currency])){
-            throw new CurrencyExchangeRateException('No exchange ratio for '.$currency);
+        if (!isset($this->table[$currency])) {
+            throw new CurrencyExchangeRateException('No exchange ratio for ' . $currency);
         }
         $cur = $this->table[$currency];
-        return round(($amount/$cur['converter']) * $cur['price'],2);
+        return round(($amount / $cur['converter']) * $cur['price'], 2);
     }
 
     public function setExchangeRateDate(Moment $date)
     {
         $this->exchangeRateDate = $date;
-        $this->table            = NULL;
+        $this->table = NULL;
     }
 
     public function getExchangeRateDate()
@@ -248,7 +254,7 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
     public function setTableType($tableType)
     {
         $this->tableType = $tableType;
-        $this->table     = NULL;
+        $this->table = NULL;
     }
 
     protected function setTableDate($tableDate)
@@ -272,12 +278,14 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
         // Read only
     }
 
-    public function getTableName(){
+    public function getTableName()
+    {
         $this->downloadTable();
         return $this->tableName;
     }
 
-    protected function setTableName(){
+    protected function setTableName()
+    {
         // Read only
     }
 
@@ -286,10 +294,9 @@ class CurrencyExchangeNBP extends \yii\base\Object implements ICurrencyExchange
      * yyyyXXX where yyyy - year XXX - number in year
      * @return int
      */
-    public function getTableOrderNumber(){
+    public function getTableOrderNumber()
+    {
         $nr = $this->getTableNumber();
-        return (int)(substr($nr,10,4).substr($nr,0,3));
+        return (int) (substr($nr, 10, 4) . substr($nr, 0, 3));
     }
-
-
 }

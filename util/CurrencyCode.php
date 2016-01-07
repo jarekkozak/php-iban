@@ -14,7 +14,8 @@ namespace jarekkozak\util;
  */
 class CurrencyCode
 {
-    public $isoLink = 'http://www.currency-iso.org/dam/downloads/table_a1.xml';
+    //public $isoLink = 'http://www.currency-iso.org/dam/downloads/table_a1.xml';
+    public $isoLink = 'http://www.currency-iso.org/dam/downloads/lists/list_one.xml';
 
     public $currencyList = ['PLN','THB', 'USD', 'AUD', 'HKD', 'CAD', 'NZD', 'SGD', 'EUR',
         'HUF', 'CHF', 'GBP', 'UAH', 'JPY', 'CZK', 'DKK', 'ISK', 'NOK', 'SEK', 'HRK',
